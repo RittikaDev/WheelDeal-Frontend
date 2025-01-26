@@ -7,6 +7,7 @@ const authApi = baseApi.injectEndpoints({
 		getAllCars: builder.query({
 			query: (params) => {
 				const queryParams = params ? `?${urlSearchParams(params)}` : "";
+				console.log("Request URL:", `/cars${queryParams}`);
 				return {
 					url: `/cars${queryParams}`,
 					method: "GET",
@@ -14,6 +15,7 @@ const authApi = baseApi.injectEndpoints({
 			},
 			providesTags: ["cars"],
 			transformResponse: (response: TResponseRedux<any[]>) => {
+				console.log(response);
 				return {
 					data: response?.data,
 					meta: response?.meta,

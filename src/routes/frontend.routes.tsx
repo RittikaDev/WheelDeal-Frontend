@@ -1,4 +1,5 @@
 import HomePage from "../pages/HomePage";
+import ProductsPage from "../pages/Products";
 
 export const frontendPageRoutes = [
 	{
@@ -7,8 +8,8 @@ export const frontendPageRoutes = [
 
 		children: [
 			{
-				path: "products",
-				element: <HomePage />,
+				path: "cars",
+				element: <ProductsPage />,
 			},
 			// {
 			// 	path: "products/:id",
