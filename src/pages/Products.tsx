@@ -3,13 +3,13 @@
 // import NotFound from "@/components/shared/NotFound";
 // import ProductsSidebar from "@/components/shared/ProductsSidebar";
 
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { ICar } from "../types";
 import FeaturedProductCard from "../components/reusableComponents/FeaturedProductCard";
 import {
   useGetAllCarsQuery,
-  useGetCarBrandNamesQuery,
+  useGetCarBrandCatModelQuery,
 } from "../redux/features/cars/carApi";
 import {
   Pagination,
@@ -21,10 +21,11 @@ import {
   PaginationNext,
 } from "../components/ui/pagination";
 import ProductsSidebar from "../components/Products/ProductsSidebar";
+import LoadingPage from "../components/shared/LoadingPage";
 
 export interface TFilterValues {
   search: string;
-  sortBy: string;
+  sort: string;
   sortOrder: string;
   limit: number;
   page: number;
@@ -32,18 +33,29 @@ export interface TFilterValues {
 }
 
 const ProductsPage = () => {
-  const { data: getBrands, isSuccess } = useGetCarBrandNamesQuery(undefined);
+  const { data: getBrands, isSuccess } = useGetCarBrandCatModelQuery(undefined);
 
-  const brandNames: string[] = [];
-  if (isSuccess && getBrands?.data)
-    getBrands.data.forEach((brands) => brandNames.push(brands.brand));
+  let brandNames: string[] = [];
+  let modelNames: string[] = [];
+  let categoryNames: string[] = [];
+  if (isSuccess && getBrands?.data) {
+    getBrands.data.forEach((brands) => {
+      brandNames.push(brands.brand);
+      modelNames.push(brands.model);
+      categoryNames.push(brands.category);
+    });
+
+    brandNames = [...new Set(brandNames)];
+    modelNames = [...new Set(modelNames)];
+    categoryNames = [...new Set(categoryNames)];
+  }
 
   const location = useLocation();
   const brand = location.state as string;
   console.log(brand);
   const initialFilterValues: TFilterValues = {
     search: "",
-    sortBy: "asc",
+    sort: "price",
     sortOrder: "",
     limit: 6,
     page: 1,
@@ -54,13 +66,18 @@ const ProductsPage = () => {
   const [selectedBrand, setSelectedBrand] = useState<string[]>([
     `${brand ? brand : ""}`,
   ]);
+  const [selectedModel, setSelectedModel] = useState<string[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [stockStatus, setStockStatus] = useState<string>("available");
   const { data: getResults, isLoading } = useGetAllCarsQuery(filters);
 
+  //   console.log(stockStatus);
   // Product and total product count
   const products = getResults?.data;
 
   if (isLoading) {
-    return <>{/* <LoadingPage /> */}</>;
+    return <>{<LoadingPage />}</>;
   }
 
   const handleFilterChange = (
@@ -74,24 +91,57 @@ const ProductsPage = () => {
   };
 
   const handleCheckboxChange = (brand: string) => {
-    setSelectedBrand((prevSelected) =>
-      prevSelected.includes(brand)
-        ? prevSelected.filter((item) => item !== brand)
-        : [...prevSelected, brand]
-    );
+    const isBrandSelected = selectedBrand.includes(brand);
+    const updatedBrands = isBrandSelected
+      ? selectedBrand.filter((item) => item !== brand)
+      : [...selectedBrand, brand];
 
+    setSelectedBrand(updatedBrands);
+
+    // Update the filters based on the updated selectedBrand
     setFilters((prevFilters) => ({
       ...prevFilters,
-      brand: selectedBrand.includes(brand)
-        ? prevFilters.brand.filter((cat) => cat !== brand)
-        : [...prevFilters.brand, brand],
+      brand: updatedBrands, // Assuming 'filter' should hold the selected brands
     }));
   };
 
-  const handleBrandChange = (brand: string) => {
-    setSelectedBrand((prev) =>
-      prev.includes(brand) ? prev.filter((b) => b !== brand) : [...prev, brand]
-    );
+  const handleCatChange = (category: string) => {
+    const isCatSelected = selectedCategory.includes(category);
+    const updatedCat = isCatSelected
+      ? selectedCategory.filter((item) => item !== category)
+      : [...selectedCategory, category];
+
+    setSelectedCategory(updatedCat);
+
+    // Update the filters based on the updated selectedBrand
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      category: updatedCat, // Assuming 'filter' should hold the selected brands
+    }));
+  };
+  const handleModelChange = (model: string) => {
+    const isModelSelected = selectedModel.includes(model);
+    const updatedModel = isModelSelected
+      ? selectedModel.filter((item) => item !== model)
+      : [...selectedModel, model];
+
+    setSelectedModel(updatedModel);
+
+    // Update the filters based on the updated selectedBrand
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      model: updatedModel, // Assuming 'filter' should hold the selected brands
+    }));
+  };
+
+  const handleRadioChange = (stock: string) => {
+    setStockStatus(stock);
+
+    // Update the filters based on the updated stockStatus
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      status: stock, // Assuming 'filter' should hold the selected brands
+    }));
   };
 
   // handle page change
@@ -106,7 +156,7 @@ const ProductsPage = () => {
     setSelectedBrand([]);
     setFilters({
       search: "",
-      sortBy: "",
+      sort: "",
       sortOrder: "",
       limit: 6,
       page: 1,
@@ -115,17 +165,18 @@ const ProductsPage = () => {
   };
 
   // pagination calculate
-  const totalProducts = getResults?.meta?.totalPage || 0;
+  //   console.log(getResults);
+  const totalProducts = getResults?.meta?.total || 0;
   const startIndex = (filters.page - 1) * filters.limit + 1;
   const endIndex = Math.min(startIndex + filters.limit - 1, totalProducts);
-  const totalPages = Math.ceil(totalProducts / filters.limit);
+  const totalPages = getResults?.meta?.totalPages;
 
   const handleFilterSubmit = (e: FormEvent) => {
     e.preventDefault();
   };
 
-  const img =
-    "https://dt-fitfinity.myshopify.com/cdn/shop/files/AdobeStock_320492530_Preview.jpg?v=1701422683&width=1920";
+  //   const img =
+  //     "https://dt-fitfinity.myshopify.com/cdn/shop/files/AdobeStock_320492530_Preview.jpg?v=1701422683&width=1920";
 
   return (
     <div className="">
@@ -140,9 +191,16 @@ const ProductsPage = () => {
           filters={filters}
           handleFilterSubmit={handleFilterSubmit}
           handleFilterChange={handleFilterChange}
-          handleCheckboxChange={handleBrandChange}
+          handleCheckboxChange={handleCheckboxChange}
+          handleModelChange={handleModelChange}
+          handleCatChange={handleCatChange}
+          handleRadioChange={handleRadioChange}
           selectedbrands={selectedBrand}
+          selectedmodels={selectedModel}
+          selectedcat={selectedCategory}
           brands={brandNames}
+          model={modelNames}
+          category={categoryNames}
           resetFilters={resetFilters}
         />
 
@@ -162,16 +220,15 @@ const ProductsPage = () => {
               </p>
 
               <select
-                name="sortByPrice"
-                className="text-black font-medium border bg-opacity-10  
-             text-sm rounded-lg  block p-2.5               "
-                value={filters.sortBy || "Sort By Price"}
+                name="sort"
+                className="text-black font-medium border bg-opacity-10 text-sm rounded-lg  block p-2.5               "
+                value={filters.sort || "Sort By Price"}
                 onChange={handleFilterChange}
               >
-                <option className="p-2 h-20" value="asc">
+                <option className="p-2 h-20" value="price">
                   Low to High
                 </option>
-                <option className="p-2" value="desc">
+                <option className="p-2" value="-price">
                   High to Low
                 </option>
               </select>
@@ -185,16 +242,19 @@ const ProductsPage = () => {
               ))}
             </div>
             {/* pagination */}
-            <Pagination>
-              <PaginationContent>
+            <Pagination className="pt-8">
+              <PaginationContent className="flex gap-2 justify-center items-center">
                 <PaginationItem>
                   <PaginationPrevious
                     onClick={() =>
                       handlePageChange(Math.max(filters.page - 1, 1))
                     }
-                    size={undefined}
-                  />
+                    className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-300 dark:hover:bg-gray-600 hover:text-black dark:hover:text-white transition-all duration-200"
+                  >
+                    Previous
+                  </PaginationPrevious>
                 </PaginationItem>
+
                 {[
                   ...Array(Math.ceil(totalProducts / filters.limit)).keys(),
                 ].map((i) => (
@@ -202,15 +262,23 @@ const ProductsPage = () => {
                     <PaginationLink
                       href="#"
                       onClick={() => handlePageChange(i + 1)}
-                      size={undefined}
+                      className={`px-4 py-2 rounded-md ${
+                        filters.page === i + 1
+                          ? "bg-blue-500 text-white dark:bg-blue-700 dark:text-white"
+                          : "bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
+                      } hover:bg-blue-400 dark:hover:bg-blue-600 hover:text-white dark:hover:text-white transition-all duration-200`}
                     >
                       {i + 1}
                     </PaginationLink>
                   </PaginationItem>
                 ))}
+
                 <PaginationItem>
-                  <PaginationEllipsis />
+                  <PaginationEllipsis className="text-gray-500 dark:text-gray-400 px-2">
+                    ...
+                  </PaginationEllipsis>
                 </PaginationItem>
+
                 <PaginationItem>
                   <PaginationNext
                     onClick={() =>
@@ -218,8 +286,10 @@ const ProductsPage = () => {
                         Math.min(filters.page + 1, totalPages || 0)
                       )
                     }
-                    size={undefined}
-                  />
+                    className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-300 dark:hover:bg-gray-600 hover:text-black dark:hover:text-white transition-all duration-200"
+                  >
+                    Next
+                  </PaginationNext>
                 </PaginationItem>
               </PaginationContent>
             </Pagination>

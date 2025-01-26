@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent } from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
@@ -11,9 +11,16 @@ interface ProductsSidebarProps {
   ) => void;
   handleFilterSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
   brands: string[];
-  handleCheckboxChange: (category: string) => void;
+  model: string[];
+  category: string[];
+  handleCheckboxChange: (brands: string) => void;
+  handleModelChange: (model: string) => void;
+  handleCatChange: (category: string) => void;
   selectedbrands: string[];
+  selectedmodels: string[];
+  selectedcat: string[];
   resetFilters: () => void;
+  handleRadioChange: (value: string) => void;
 }
 
 const ProductsSidebar: React.FC<ProductsSidebarProps> = ({
@@ -21,21 +28,28 @@ const ProductsSidebar: React.FC<ProductsSidebarProps> = ({
   handleFilterChange,
   handleFilterSubmit,
   brands,
+  model,
+  category,
   handleCheckboxChange,
+  handleModelChange,
+  handleCatChange,
   selectedbrands,
+  selectedmodels,
+  selectedcat,
   resetFilters,
+  handleRadioChange,
 }) => {
-  const [openMenus, setOpenMenus] = useState(false);
-
   return (
-    <div className="w-full md:max-w-xs p-4 bg-gray-100 rounded-lg shadow-md">
+    <div className="w-full md:max-w-xs p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md">
       <form onSubmit={handleFilterSubmit}>
         {/* Search Section */}
         <div className="mb-6">
-          <h3 className="text-lg font-semibold text-gray-700 mb-2">Search</h3>
+          <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">
+            Search
+          </h3>
           <Input
             name="search"
-            className="w-full border border-gray-300 rounded-md p-2"
+            className="w-full border border-gray-300 dark:border-gray-600 rounded-md p-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200"
             type="text"
             placeholder="Search..."
             onChange={handleFilterChange}
@@ -44,23 +58,37 @@ const ProductsSidebar: React.FC<ProductsSidebarProps> = ({
 
         {/* Filters Section */}
         <div className="mb-6">
-          <h3 className="text-lg font-semibold text-gray-700 mb-2">Filters</h3>
+          <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">
+            Filters
+          </h3>
           <RadioGroup
             name="stockStatus"
             defaultValue={filters.stockStatus}
             className="space-y-2"
+            onChange={(event: any) => handleRadioChange(event.target.value)}
           >
             <div className="flex items-center">
-              <RadioGroupItem value="inStock" id="inStock" />
-              <Label htmlFor="inStock" className="ml-2 text-sm text-gray-600">
+              <RadioGroupItem
+                value="available"
+                id="available"
+                onChange={() => handleRadioChange("available")}
+              />
+              <Label
+                htmlFor="available"
+                className="ml-2 text-sm text-gray-600 dark:text-gray-300"
+              >
                 In Stock
               </Label>
             </div>
             <div className="flex items-center">
-              <RadioGroupItem value="outOfStock" id="outOfStock" />
+              <RadioGroupItem
+                value="unavailable"
+                id="unavailable"
+                onChange={() => handleRadioChange("unavailable")}
+              />
               <Label
-                htmlFor="outOfStock"
-                className="ml-2 text-sm text-gray-600"
+                htmlFor="unavailable"
+                className="ml-2 text-sm text-gray-600 dark:text-gray-300"
               >
                 Out of Stock
               </Label>
@@ -68,61 +96,85 @@ const ProductsSidebar: React.FC<ProductsSidebarProps> = ({
           </RadioGroup>
         </div>
 
-        {/* brands Section */}
+        {/* Brands Section */}
         <div className="mb-6">
-          <h3 className="text-lg font-semibold text-gray-700 mb-2">brands</h3>
+          <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">
+            Brands
+          </h3>
           <ul className="space-y-2">
-            {brands.map((category, i) => (
+            {brands.map((b, i) => (
               <li key={i} className="flex items-center">
                 <input
                   type="checkbox"
-                  id={category}
-                  value={category}
-                  checked={selectedbrands.includes(category)}
-                  onChange={() => handleCheckboxChange(category)}
-                  className="h-4 w-4 text-primary border-gray-300 rounded focus:ring-primary"
+                  id={b}
+                  value={b}
+                  checked={selectedbrands.includes(b)}
+                  onChange={() => handleCheckboxChange(b)}
+                  className="h-4 w-4 text-primary border-gray-300 dark:border-gray-600 rounded focus:ring-primary"
                 />
                 <Label
-                  htmlFor={category}
-                  className="ml-2 text-sm text-gray-600"
+                  htmlFor={b}
+                  className="ml-2 text-sm text-gray-600 dark:text-gray-300"
                 >
-                  {category}
+                  {b}
                 </Label>
               </li>
             ))}
           </ul>
         </div>
 
-        {/* Expandable Section (Example) */}
+        {/* Model Section */}
         <div className="mb-6">
-          <h3
-            className="text-lg font-semibold text-gray-700 mb-2 flex justify-between items-center cursor-pointer"
-            onClick={() => setOpenMenus(!openMenus)}
-          >
-            Equipments <span>{openMenus ? "-" : "+"}</span>
+          <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">
+            Model
           </h3>
-          {openMenus && (
-            <div className="pl-4">
-              {brands.map((category, i) => (
-                <div key={i} className="flex items-center mb-2">
-                  <input
-                    type="checkbox"
-                    id={`equip-${category}`}
-                    value={category}
-                    checked={selectedbrands.includes(category)}
-                    onChange={() => handleCheckboxChange(category)}
-                    className="h-4 w-4 text-primary border-gray-300 rounded focus:ring-primary"
-                  />
-                  <Label
-                    htmlFor={`equip-${category}`}
-                    className="ml-2 text-sm text-gray-600"
-                  >
-                    {category}
-                  </Label>
-                </div>
-              ))}
-            </div>
-          )}
+          <ul className="space-y-2">
+            {model.map((m, i) => (
+              <li key={i} className="flex items-center">
+                <input
+                  type="checkbox"
+                  id={m}
+                  value={m}
+                  checked={selectedmodels.includes(m)}
+                  onChange={() => handleModelChange(m)}
+                  className="h-4 w-4 text-primary border-gray-300 dark:border-gray-600 rounded focus:ring-primary"
+                />
+                <Label
+                  htmlFor={m}
+                  className="ml-2 text-sm text-gray-600 dark:text-gray-300"
+                >
+                  {m}
+                </Label>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Category Section */}
+        <div className="mb-6">
+          <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">
+            Category
+          </h3>
+          <ul className="space-y-2">
+            {category.map((c, i) => (
+              <li key={i} className="flex items-center">
+                <input
+                  type="checkbox"
+                  id={c}
+                  value={c}
+                  checked={selectedcat.includes(c)}
+                  onChange={() => handleCatChange(c)}
+                  className="h-4 w-4 text-primary border-gray-300 dark:border-gray-600 rounded focus:ring-primary"
+                />
+                <Label
+                  htmlFor={c}
+                  className="ml-2 text-sm text-gray-600 dark:text-gray-300"
+                >
+                  {c}
+                </Label>
+              </li>
+            ))}
+          </ul>
         </div>
 
         {/* Clear Filters */}

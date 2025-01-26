@@ -1,4 +1,4 @@
-import { TResponseRedux } from "../../../types";
+import { ICar, TResponseRedux } from "../../../types";
 import { urlSearchParams } from "../../../utils/urlSearchParams";
 import { baseApi } from "../../api/baseApi";
 
@@ -17,9 +17,15 @@ const authApi = baseApi.injectEndpoints({
       transformResponse: (response: TResponseRedux<any[]>) => {
         return {
           data: response?.data,
-          meta: response?.meta,
+          meta: response?.paginationMetaData,
         };
       },
+    }),
+    getSingleCar: builder.query<TResponseRedux<ICar>, string>({
+      query: (carId) => ({
+        url: `/cars/${carId}`,
+        method: "GET",
+      }),
     }),
     getFeaturedCars: builder.query({
       query: () => {
@@ -34,7 +40,7 @@ const authApi = baseApi.injectEndpoints({
         };
       },
     }),
-    getCarBrandNames: builder.query({
+    getCarBrandCatModel: builder.query({
       query: () => {
         return {
           url: `/cars/brands`,
@@ -61,6 +67,7 @@ const authApi = baseApi.injectEndpoints({
 
 export const {
   useGetAllCarsQuery,
+  useGetSingleCarQuery,
   useGetFeaturedCarsQuery,
-  useGetCarBrandNamesQuery,
+  useGetCarBrandCatModelQuery,
 } = authApi; // A CUSTOM HOOK A CUSTOM HOOK PROVIDED BY RTK QUERY FOR USING THE LOGIN MUTATION. RETURNS A FUNCTION (LOGIN) FOR TRIGGERING THE MUTATION. METADATA SUCH AS ERROR, ISLOADING, ETC.
