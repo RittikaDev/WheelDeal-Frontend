@@ -8,6 +8,7 @@ import DashboardLayout from "../components/layout/DashboardLayout";
 import ProtectedRoutes from "../components/layout/ProtectedRoutes";
 import ViewOrders from "../pages/User/ViewOrders";
 import ManageProfile from "../pages/User/ManageProfile";
+import AddCar from "../pages/Admin/ManageCars/AddCar";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,20 @@ const router = createBrowserRouter([
       //     path: "payments-history",
       //     element: <PaymentsHistory />,
       //   },
+    ],
+  },
+  {
+    path: "/admin",
+    element: (
+      <ProtectedRoutes roles={["admin"]}>
+        <DashboardLayout />
+      </ProtectedRoutes>
+    ),
+    children: [
+      {
+        path: "add-product",
+        element: <AddCar />,
+      },
     ],
   },
 ]);

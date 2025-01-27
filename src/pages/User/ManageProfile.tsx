@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../../components/ui/button";
 import {
   Card,
@@ -15,6 +15,14 @@ import {
   TabsTrigger,
 } from "../../components/ui/tabs";
 import Header from "../../components/reusableComponents/Header";
+import {
+  useChangePasswordMutation,
+  useGetCurrentUserMutation,
+  useUpdateProfileMutation,
+} from "../../redux/features/auth/authApi";
+import ShowToast from "../../components/reusableComponents/ShowToast";
+import { selectCurrentUser } from "../../redux/features/auth/authSlice";
+import { useAppSelector } from "../../redux/hooks";
 
 export function ManageProfile() {
   const [profileData, setProfileData] = useState({
@@ -29,8 +37,35 @@ export function ManageProfile() {
     newPassword: "",
   });
 
+  const [changePassword] = useChangePasswordMutation();
+  const [updateProfile] = useUpdateProfileMutation();
+
+  const userEmail = useAppSelector(selectCurrentUser);
+  const [getCurrentUser, { data: currentUser }] = useGetCurrentUserMutation();
+
+  useEffect(() => {
+    if (userEmail) {
+      getCurrentUser({ email: userEmail.userEmail });
+    }
+  }, [userEmail, getCurrentUser]);
+
+  // Auto-fill profile data with current user if available
+  useEffect(() => {
+    // console.log(currentUser?.data);
+    if (currentUser && currentUser.data) {
+      setProfileData({
+        name: currentUser.data.name || "",
+        address: currentUser.data.address || "",
+        city: currentUser.data.city || "",
+        phone: currentUser.data.phone || "",
+      });
+    }
+  }, [currentUser]);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
+    console.log(id, value);
+    // const { id, value } = e.target;
     setProfileData((prev) => ({ ...prev, [id]: value }));
   };
 
@@ -39,45 +74,57 @@ export function ManageProfile() {
     setPasswordData((prev) => ({ ...prev, [id]: value }));
   };
 
-  const updateProfile = async () => {
+  const updateProfileInfo = async () => {
+    const toastId = ShowToast("Updating Profile...", "#ffdf20", "loading");
     try {
-      const response = await fetch("/api/update-profile", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(profileData),
-      });
-      const result = await response.json();
-      alert(result.message || "Profile updated successfully!");
+      const result = await updateProfile(profileData).unwrap();
+      ShowToast(result.message, "#4CAF50", "success", toastId);
     } catch (error) {
       console.error("Error updating profile:", error);
-      alert("Failed to update profile. Please try again.");
+      ShowToast(
+        "Failed to update profile. Please try again.",
+        "#FF6347",
+        "error",
+        toastId
+      );
     }
   };
 
   const updatePassword = async () => {
+    const toastId = ShowToast("Updating Password...", "#ffdf20", "loading");
+
     try {
-      const response = await fetch("/api/update-password", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(passwordData),
-      });
-      const result = await response.json();
-      alert(result.message || "Password updated successfully!");
+      const result = await changePassword(passwordData).unwrap();
+      ShowToast(result.message, "#4CAF50", "success", toastId);
+      window.location.href = "/login";
     } catch (error) {
       console.error("Error updating password:", error);
-      alert("Failed to update password. Please try again.");
+      ShowToast(
+        "Failed to update password. Please try again.",
+        "#FF6347",
+        "error",
+        toastId
+      );
     }
   };
 
   const handleProfileUpdate = () => {
     // Validation logic can be added here
-    updateProfile();
+    updateProfileInfo();
   };
 
   const handlePasswordUpdate = () => {
-    // Validation logic can be added here
     updatePassword();
   };
+
+  // Check if all profile fields are filled
+  const isProfileComplete = Object.values(profileData).every(
+    (field) => field !== ""
+  );
+
+  // Check if all password fields are filled
+  const isPasswordComplete =
+    passwordData.oldPassword !== "" && passwordData.newPassword !== "";
 
   return (
     <Tabs defaultValue="account" className="w-full max-w-4xl mx-auto p-6">
@@ -136,7 +183,9 @@ export function ManageProfile() {
             </div>
           </CardContent>
           <CardFooter className="flex justify-center">
-            <Button onClick={handleProfileUpdate}>Update Profile</Button>
+            <Button onClick={handleProfileUpdate} disabled={!isProfileComplete}>
+              Update Profile
+            </Button>
           </CardFooter>
         </Card>
       </TabsContent>
@@ -173,7 +222,12 @@ export function ManageProfile() {
             </div>
           </CardContent>
           <CardFooter className="flex justify-center">
-            <Button onClick={handlePasswordUpdate}>Save Password</Button>
+            <Button
+              onClick={handlePasswordUpdate}
+              disabled={!isPasswordComplete}
+            >
+              Save Password
+            </Button>
           </CardFooter>
         </Card>
       </TabsContent>

@@ -101,14 +101,14 @@ const SideMenu = () => {
   const adminLinks = (
     <>
       <li>
-        <Link className="block w-full" to={"/admin/overview"}>
+        <Link className="block w-full" to={"/admin/add-product"}>
           <Button
             variant={"secondary"}
             size={"lg"}
             className="flex items-center justify-start space-x-2 w-full"
           >
             <LayoutDashboard size={16} />
-            <span>Overview</span>
+            <span>Add Product</span>
           </Button>
         </Link>
       </li>

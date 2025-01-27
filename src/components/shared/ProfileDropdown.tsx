@@ -25,7 +25,7 @@ interface IProps {
   name?: string;
 }
 
-const ProfileDropdown = ({ align, size, profileImage, name }: IProps) => {
+const Profile = ({ align, size, profileImage, name }: IProps) => {
   const dispatch = useAppDispatch();
   const handleLogout = () => {
     dispatch(logout());
@@ -73,4 +73,4 @@ const ProfileDropdown = ({ align, size, profileImage, name }: IProps) => {
   );
 };
 
-export default ProfileDropdown;
+export default Profile;

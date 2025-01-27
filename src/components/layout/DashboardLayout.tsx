@@ -16,7 +16,7 @@ const DashboardLayout = () => {
     if (userEmail) getCurrentUser({ email: userEmail.userEmail });
   }, [userEmail, getCurrentUser]);
 
-  console.log(currentUser);
+  console.log(userEmail);
 
   return (
     <section className="flex flex-col lg:flex-row">

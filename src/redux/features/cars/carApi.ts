@@ -54,13 +54,14 @@ const authApi = baseApi.injectEndpoints({
       },
     }),
 
-    // MUTATION FOR ACTIONS THAT MODIFY SERVER-SIDE DATA
-    login: builder.mutation({
-      query: (userInfo) => ({
-        url: "/auth/login",
+    // CREATE ORDER
+    createProduct: builder.mutation({
+      query: (data) => ({
+        url: "/cars",
         method: "POST",
-        body: userInfo,
+        body: data,
       }),
+      invalidatesTags: ["cars"],
     }),
   }),
 });
@@ -70,4 +71,5 @@ export const {
   useGetSingleCarQuery,
   useGetFeaturedCarsQuery,
   useGetCarBrandCatModelQuery,
+  useCreateProductMutation,
 } = authApi; // A CUSTOM HOOK A CUSTOM HOOK PROVIDED BY RTK QUERY FOR USING THE LOGIN MUTATION. RETURNS A FUNCTION (LOGIN) FOR TRIGGERING THE MUTATION. METADATA SUCH AS ERROR, ISLOADING, ETC.

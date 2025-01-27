@@ -76,7 +76,7 @@ const CheckOut = () => {
     // console.log(result.data.data);
 
     if (result?.data?.success) {
-      ShowToast(result?.data?.message, "#4CAF50");
+      ShowToast(result?.data?.message, "#4CAF50", "success");
       if (result?.data?.data)
         setTimeout(() => {
           window.location.href = result?.data?.data;
@@ -86,7 +86,7 @@ const CheckOut = () => {
       // dispatch(removeCarFromCart(productIdsToRemove)); // TESTING: COMMENT OUT
       // navigate("/order-success");
       setIsEditing(false);
-    } else ShowToast("Failed to place order", "#FF6347");
+    } else ShowToast("Failed to place order", "#FF6347", "error");
   };
 
   return (

@@ -58,7 +58,7 @@ const NavBar = () => {
       menuId: 4,
       label: "Dashboard",
       path:
-        (user?.role === "admin" && "/admin/overview") ||
+        (user?.role === "admin" && "/admin") ||
         (user?.role === "user" && "/user") ||
         "/",
     });
@@ -116,7 +116,7 @@ const NavBar = () => {
                   Sign Up
                 </Button>
               </Link>
-              <Link to="/signin">
+              <Link to="/login">
                 <Button size={"lg"} variant={"default"} className="w-full">
                   Sign In
                 </Button>
@@ -153,12 +153,12 @@ const NavBar = () => {
               <div className="space-x-2 hidden lg:inline-block">
                 <Link to="/signup">
                   <Button size={"lg"} variant={"ghost"}>
-                    Sign Up
+                    Register
                   </Button>
                 </Link>
-                <Link to="/signin">
+                <Link to="/login">
                   <Button size={"lg"} variant={"default"}>
-                    Sign In
+                    Log In
                   </Button>
                 </Link>
               </div>
