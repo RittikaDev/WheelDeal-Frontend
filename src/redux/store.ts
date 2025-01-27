@@ -1,5 +1,6 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import {
+	persistStore,
 	persistReducer,
 	FLUSH,
 	PAUSE,
@@ -8,49 +9,58 @@ import {
 	REGISTER,
 	REHYDRATE,
 } from "redux-persist";
-import storage from "redux-persist/lib/storage";
+import storage from "redux-persist/lib/storage"; // Defaults to localStorage for web
 import { baseApi } from "./api/baseApi";
 import authReducer from "./features/auth/authSlice";
 import carReducer from "./features/cars/carSlice";
 
-/*
-THE persistConfig OBJECT TELLS redux-persist:
-WHAT KEY TO USE FOR STORAGE (AUTH).
-WHICH STORAGE TO USE (REDUX-PERSIST/LIB/STORAGE USES LOCALSTORAGE).
-*/
-const persistConfig = {
+// Persist configuration for auth slice
+const authPersistConfig = {
 	key: "auth",
 	storage,
 };
 
-/*
- * PERSISTREDUCER TAKES YOUR REDUCER (authReducer) AND A persistConfig TO CREATE A WRAPPED REDUCER.
- * THIS WRAPPED REDUCER MANAGES PERSISTENCE FOR THE STATE SLICE (AUTH).
- */
-const persistedAuthReducer = persistReducer(persistConfig, authReducer);
-const persistedCarReducer = persistReducer(persistConfig, carReducer);
+// Persist configuration for car slice
+const carPersistConfig = {
+	key: "car", // Ensure this matches the reducer key
+	storage,
+};
 
-/*
- redux-persist IS A LIBRARY THAT:
- * SAVES PART (OR ALL) OF YOUR REDUX STATE TO STORAGE (E.G., LOCALSTORAGE).
- * AUTOMATICALLY RELOADS (REHYDRATES) THE STATE WHEN THE APP STARTS.
-*/
+// Wrapped reducers with persistence
+const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
+const persistedCarReducer = persistReducer(carPersistConfig, carReducer);
 
+// Combine all reducers
+const rootReducer = combineReducers({
+	[baseApi.reducerPath]: baseApi.reducer,
+	auth: persistedAuthReducer, // Persisted auth slice
+	car: persistedCarReducer, // Persisted car slice
+});
+
+// Root persist configuration
+const rootPersistConfig = {
+	key: "root",
+	storage,
+	whitelist: ["auth", "car"], // Persist only auth and car slices
+};
+
+// Wrap rootReducer with persistReducer
+const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
+
+// Configure the store
 export const store = configureStore({
-	reducer: {
-		[baseApi.reducerPath]: baseApi.reducer,
-		auth: persistedAuthReducer,
-		car: persistedCarReducer,
-	},
-	middleware: (getDefaultMiddlewares) =>
-		getDefaultMiddlewares({
+	reducer: persistedReducer,
+	middleware: (getDefaultMiddleware) =>
+		getDefaultMiddleware({
 			serializableCheck: {
 				ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
 			},
 		}).concat(baseApi.middleware),
 });
 
+// Persistor for redux-persist
+export const persistor = persistStore(store);
+
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch;

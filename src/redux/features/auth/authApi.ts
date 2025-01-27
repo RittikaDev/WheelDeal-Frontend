@@ -22,18 +22,29 @@ const authApi = baseApi.injectEndpoints({
 			}),
 		}),
 
-		// GET CURRENT LOGGED-IN USER
-		getCurrentUser: builder.query({
-			query: () => {
-				return {
-					url: "/auth/current-user",
-					method: "GET",
-				};
-			},
-			// providesTags: ["currentUser"],
+		getCurrentUser: builder.mutation({
+			query: (userInfo) => ({
+				url: "/auth/current-user",
+				method: "POST",
+				body: userInfo,
+			}),
 		}),
+
+		// GET CURRENT LOGGED-IN USER
+		// getCurrentUser: builder.query({
+		// 	query: () => {
+		// 		return {
+		// 			url: "/auth/current-user",
+		// 			method: "GET",
+		// 		};
+		// 	},
+		// 	// providesTags: ["currentUser"],
+		// }),
 	}),
 });
 
-export const { useLoginMutation, useGetCurrentUserQuery, useSignupMutation } =
-	authApi; // A CUSTOM HOOK A CUSTOM HOOK PROVIDED BY RTK QUERY FOR USING THE LOGIN MUTATION. RETURNS A FUNCTION (LOGIN) FOR TRIGGERING THE MUTATION. METADATA SUCH AS ERROR, ISLOADING, ETC.
+export const {
+	useLoginMutation,
+	useGetCurrentUserMutation,
+	useSignupMutation,
+} = authApi; // A CUSTOM HOOK A CUSTOM HOOK PROVIDED BY RTK QUERY FOR USING THE LOGIN MUTATION. RETURNS A FUNCTION (LOGIN) FOR TRIGGERING THE MUTATION. METADATA SUCH AS ERROR, ISLOADING, ETC.

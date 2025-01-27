@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TCartItem } from "../../../types";
+import { ICar, TCartItem } from "../../../types";
 import { RootState } from "../../store";
 
 export type TCartState = {
@@ -15,17 +15,17 @@ const initialState: TCartState = {
 };
 
 const carSlice = createSlice({
-	name: "carts",
+	name: "car",
 	initialState,
 	reducers: {
-		addCarCart: (state, action: PayloadAction<TCartItem>) => {
-			const { carId, quantity } = action.payload;
+		addCarCart: (state, action: PayloadAction<TCartItem & ICar>) => {
+			const { carId, quantity, ...productDetails } = action.payload;
 
 			const exitstingItem = state.items.find(
-				(item: { carId: any }) => item.carId === carId
+				(item: { carId: string }) => item.carId === carId
 			);
 			if (exitstingItem) exitstingItem.quantity += quantity;
-			else state.items.push({ carId, quantity });
+			else state.items.push({ carId, quantity, ...productDetails });
 		},
 		removeCarFromCart: (state, action: PayloadAction<string[]>) => {
 			state.items = state.items.filter(
