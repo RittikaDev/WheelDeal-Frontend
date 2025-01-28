@@ -1,5 +1,4 @@
-import { useState } from "react";
-import axios from "axios";
+import { useState, useEffect } from "react";
 import { Label } from "../../../components/ui/label";
 import { Button } from "../../../components/ui/button";
 import {
@@ -16,10 +15,11 @@ import {
 	TabsTrigger,
 	TabsContent,
 } from "../../../components/ui/tabs";
-import { useCreateProductMutation } from "../../../redux/features/cars/carApi";
+import { ICar } from "../../../types";
+import { useUpdateProductMutation } from "../../../redux/features/cars/carApi";
 import ShowToast from "../../../components/reusableComponents/ShowToast";
 
-const AddCar = () => {
+const UpdateCar = (props: { car: ICar }) => {
 	const [carData, setCarData] = useState<{
 		name: string;
 		description: string;
@@ -36,8 +36,6 @@ const AddCar = () => {
 		transmission: string;
 		status: string;
 		stock: number;
-		image: string;
-		moreImages: string[];
 	}>({
 		name: "",
 		description: "",
@@ -54,56 +52,53 @@ const AddCar = () => {
 		transmission: "automatic",
 		status: "available",
 		stock: 40,
-		image: "",
-		moreImages: [],
 	});
 
 	const [loading, setLoading] = useState(false);
+	const [updateProduct] = useUpdateProductMutation();
 
-	const handleInputChange = (e) => {
+	// Populate carData with props.car when the component is mounted
+	useEffect(() => {
+		if (props.car) {
+			setCarData({
+				name: props.car.name || "",
+				description: props.car.description || "",
+				brand: props.car.brand || "",
+				model: props.car.model || "",
+				type: props.car.type || "",
+				category: props.car.category || "",
+				year: props.car.year || 2025,
+				price: props.car.price || 35000,
+				color: props.car.color || "",
+				seatCapacity: props.car.seatCapacity || 5,
+				isElectric: props.car.isElectric || false,
+				features: props.car.features || [],
+				transmission: props.car.transmission || "automatic",
+				status: props.car.status || "available",
+				stock: props.car.stock || 40,
+			});
+		}
+	}, [props.car]);
+
+	const handleInputChange = (e: any) => {
 		const { name, value, type, checked } = e.target;
 
 		if (type === "checkbox") setCarData({ ...carData, [name]: checked });
 		else setCarData({ ...carData, [name]: value });
 	};
 
-	const [createProduct] = useCreateProductMutation();
-
-	const handleImageUpload = async (event: any) => {
-		const file = event.target.files[0];
-		if (file) {
-			setLoading(true);
-			const formData = new FormData();
-			formData.append("file", file);
-			formData.append("upload_preset", "WheelDeal");
-
-			try {
-				const res = await axios.post(
-					`https://api.cloudinary.com/v1_1/dxm5tpw0l/image/upload`,
-					formData
-				);
-				const imageUrl = res.data.secure_url;
-				setCarData({ ...carData, image: imageUrl });
-				setLoading(false);
-			} catch (err) {
-				console.error("Error uploading image", err);
-				setLoading(false);
-			}
-		}
-	};
-
 	const handleSubmit = async (e: any) => {
+		const toastId = ShowToast("Updating...", "#ffdf20", "loading");
+
 		e.preventDefault();
-		const toastId = ShowToast("Adding...", "#ffdf20", "loading");
 		setLoading(true);
 		try {
-			const result = await createProduct(carData);
-			console.log(result);
-			ShowToast("Car created successfully:", "#4CAF50", "success", toastId);
+			const result = await updateProduct({ id: props.car._id, carData });
+			ShowToast(result?.data.message, "#4CAF50", "success", toastId);
 			setLoading(false);
 		} catch (err) {
-			console.log(err);
-			ShowToast("Failed to add", "#b71c1c", "error", toastId);
+			console.error("Error updating car:", err);
+			ShowToast("Failed to update", "#b71c1c", "error", toastId);
 			setLoading(false);
 		}
 	};
@@ -113,8 +108,8 @@ const AddCar = () => {
 			<Card>
 				<CardHeader>
 					<div className="text-center space-y-1.5 px-2 md:px-0">
-						<Header header={"Add New Car"} />
-						<p>Add new car details here.</p>
+						<Header header={"Update Car Details"} />
+						<p>Modify car details as required.</p>
 					</div>
 				</CardHeader>
 
@@ -123,13 +118,12 @@ const AddCar = () => {
 						<TabsList className="flex justify-center space-x-12 mb-12">
 							<TabsTrigger value="basic-details">Basic Details</TabsTrigger>
 							<TabsTrigger value="pricing">Pricing & Availability</TabsTrigger>
-							<TabsTrigger value="images">Images</TabsTrigger>
 							<TabsTrigger value="features">Features</TabsTrigger>
 						</TabsList>
 
 						<TabsContent value="basic-details">
+							{/* Basic Details Tab */}
 							<div className="space-y-4">
-								{/* Car Name & Description */}
 								<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 									<div className="space-y-1">
 										<Label htmlFor="name">Car Name</Label>
@@ -152,7 +146,6 @@ const AddCar = () => {
 										/>
 									</div>
 								</div>
-
 								{/* Brand, Model, and Type */}
 								<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 									<div className="space-y-1">
@@ -265,24 +258,6 @@ const AddCar = () => {
 							</div>
 						</TabsContent>
 
-						<TabsContent value="images">
-							<div className="space-y-4">
-								{/* Image Upload */}
-								<div className="space-y-1">
-									<Label htmlFor="image">Image</Label>
-									<input
-										id="image"
-										type="file"
-										onChange={handleImageUpload}
-										className="block w-full p-2 border border-gray-300 rounded-md"
-									/>
-									{loading && (
-										<p className="text-sm text-gray-500 mt-2">Uploading...</p>
-									)}
-								</div>
-							</div>
-						</TabsContent>
-
 						<TabsContent value="features">
 							<div className="space-y-4">
 								{/* Features */}
@@ -323,7 +298,7 @@ const AddCar = () => {
 
 				<CardFooter className="flex justify-center">
 					<Button onClick={handleSubmit} disabled={loading}>
-						{loading ? "Submitting..." : "Submit"}
+						{loading ? "Updating..." : "Update"}
 					</Button>
 				</CardFooter>
 			</Card>
@@ -331,4 +306,4 @@ const AddCar = () => {
 	);
 };
 
-export default AddCar;
+export default UpdateCar;
