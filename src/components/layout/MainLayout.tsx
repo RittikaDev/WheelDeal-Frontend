@@ -1,18 +1,28 @@
 import { Outlet } from "react-router-dom";
-// import LoadingPage from "../shared/LoadingPage";
+
 import NavBar from "../shared/NavBar";
+import Footer from "../shared/Footer";
+
+import { useGetFeaturedCarsQuery } from "../../redux/features/cars/carApi";
+import LoadingPage from "../shared/LoadingPage";
 
 const MainLayout = () => {
-  // const { isLoading } = useGetProductsQuery({});
+  const { isLoading } = useGetFeaturedCarsQuery({});
+
+  if (isLoading) {
+    return <LoadingPage />;
+  }
   return (
     <>
-      {/* {isLoading ? ( */}
-      <>{/* <LoadingPage /> */}</>
-
-      {/* ) : ( */}
-
-      <NavBar />
-      <Outlet />
+      {isLoading ? (
+        <LoadingPage />
+      ) : (
+        <>
+          <NavBar />
+          <Outlet />
+          <Footer />
+        </>
+      )}
     </>
   );
 };

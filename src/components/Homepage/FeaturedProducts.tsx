@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 
 import { Button } from "../ui/button";
-import LoadingPage from "../shared/LoadingPage";
 
 import { useGetFeaturedCarsQuery } from "../../redux/features/cars/carApi";
 
@@ -13,15 +12,10 @@ import { ICar } from "../../types";
 import FeaturedProductCard from "../reusableComponents/FeaturedProductCard";
 
 const FeaturedProducts = () => {
-  const { data: result, isLoading } = useGetFeaturedCarsQuery({});
-  // Product and total product count
+  const { data: result } = useGetFeaturedCarsQuery({});
   const getFeaturedCars = result?.data;
 
-  console.log(getFeaturedCars);
-
-  if (isLoading) {
-    return <LoadingPage />;
-  }
+  // console.log(getFeaturedCars);
 
   return (
     <div className="max-w-7xl mx-auto space-y-10">

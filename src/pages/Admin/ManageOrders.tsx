@@ -3,7 +3,7 @@ import { Label } from "@radix-ui/react-label";
 import { CalendarIcon, Search } from "lucide-react";
 
 import { Toaster } from "sonner";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import LoadingPage from "../../components/shared/LoadingPage";
 import {
   useDeleteOrderMutation,
@@ -54,17 +54,6 @@ const ManageOrders = () => {
   const [selectedDate, setSelectedDate] = useState<Map<string, Date>>(
     new Map()
   );
-  useEffect(() => {
-    if (orders) {
-      const initialDates = new Map<string, Date>();
-      orders.forEach((order: any) => {
-        if (order.shippingDate) {
-          initialDates.set(order._id, new Date(order.shippingDate)); // Assuming `shippingDate` exists in the order data
-        }
-      });
-      setSelectedDate(initialDates);
-    }
-  }, [orders]);
 
   const handleDateChange = (orderId: string, selectDate: Date) => {
     console.log(selectedDate.get(orderId));
@@ -204,7 +193,7 @@ const ManageOrders = () => {
                       Status
                     </th>
                     <th scope="col" className="px-6 py-3">
-                      Delivery Date
+                      Pick a Date
                     </th>
                     <th scope="col" className="px-6 py-3">
                       Payment Status
@@ -281,12 +270,11 @@ const ManageOrders = () => {
                             >
                               <CalendarIcon className="mr-2" />
                               {selectedDate.get(order._id) ? (
-                                format(
-                                  selectedDate.get(order._id) ?? new Date(),
-                                  "PPP"
-                                ) // Display selected date
+                                format(selectedDate.get(order._id)!, "PPP") // Display selected date from Map
+                              ) : order.deliveryDate ? (
+                                format(new Date(order.deliveryDate), "PPP") // Fallback to deliveryDate
                               ) : (
-                                <span>Set Delivery Date</span> // Placeholder text
+                                <span>Pick a date</span> // Placeholder text
                               )}
                             </Button>
                           </PopoverTrigger>

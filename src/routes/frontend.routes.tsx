@@ -1,3 +1,4 @@
+import AboutUs from "../pages/AboutUs";
 import CheckOut from "../pages/CheckOut";
 import HomePage from "../pages/HomePage";
 import ProductDetails from "../pages/ProductDetails";
@@ -21,6 +22,10 @@ export const frontendPageRoutes = [
       {
         path: "checkout",
         element: <CheckOut />,
+      },
+      {
+        path: "about-us",
+        element: <AboutUs />,
       },
       {
         path: "order/verify",

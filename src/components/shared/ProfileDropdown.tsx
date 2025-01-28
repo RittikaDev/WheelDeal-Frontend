@@ -28,7 +28,7 @@ const Profile = ({ align, size, profileImage, name, email }: IProps) => {
   const handleLogout = () => {
     dispatch(logout());
   };
-  console.log(email);
+  // console.log(email);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
