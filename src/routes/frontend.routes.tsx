@@ -18,10 +18,6 @@ export const frontendPageRoutes = [
         path: "cars/:id",
         element: <ProductDetails />,
       },
-      // {
-      // 	path: "cart",
-      // 	element: <Cart />,
-      // },
       {
         path: "checkout",
         element: <CheckOut />,
@@ -30,22 +26,6 @@ export const frontendPageRoutes = [
         path: "order/verify",
         element: <VerifyOrder />,
       },
-      // {
-      // 	path: "about-us",
-      // 	element: <AboutUs />,
-      // },
-      // {
-      // 	path: "product-management",
-      // 	element: <ProductManagement />,
-      // },
-      // {
-      // 	path: "order-success",
-      // 	element: <OrderSuccess />,
-      // },
-      // {
-      // 	path: "orders",
-      // 	element: <OrdersPage />,
-      // },
     ],
   },
 ];

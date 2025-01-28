@@ -13,48 +13,45 @@ import {
 import { Input } from "../../components/ui/input";
 import { Separator } from "../../components/ui/separator";
 
-import { useLoginMutation } from "../../redux/features/auth/authApi";
-import { setUser } from "../../redux/features/auth/authSlice";
-
 import { Eye, EyeOff } from "lucide-react";
-import { useAppDispatch } from "../../redux/hooks";
 
-import { verifyToken } from "../../utils/verifyToken";
 import { TError } from "../../types";
 import { TUser } from "../../types/auth.type";
 import Header from "../../components/reusableComponents/Header";
 import Subheader from "../../components/reusableComponents/SubHeader";
 import ShowToast from "../../components/reusableComponents/ShowToast";
+import { useRegisterMutation } from "../../redux/features/auth/authApi";
 
-const Login = () => {
+const Register = () => {
   const [isPassword, setIsPassword] = useState(true);
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-  const [Login] = useLoginMutation();
+  const [register] = useRegisterMutation();
 
   const form = useForm<TUser>({
-    defaultValues: { email: "", password: "" },
+    defaultValues: { name: "", email: "", password: "" },
   });
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   useEffect(() => {
-    const { email, password } = form.getValues();
-    setIsButtonDisabled(!(email && password));
-  }, [form.getValues().email, form.getValues().password]);
+    const { name, email, password } = form.getValues();
+    setIsButtonDisabled(!(name && email && password));
+  }, [
+    form.getValues().name,
+    form.getValues().email,
+    form.getValues().password,
+  ]);
 
   const onSubmit = async (data: TUser) => {
     const toastId = ShowToast("Logging in...", "#ffdf20", "loading");
 
     try {
-      const result = await Login(data).unwrap();
+      const result = await register(data).unwrap();
+      console.log(result);
       if (result.success) {
-        const user = verifyToken(result?.data?.token as string);
-        dispatch(setUser({ user: user, token: result.data?.token as string }));
-
         ShowToast(result?.message, "#4CAF50", "success", toastId);
 
-        navigate("/");
+        navigate("/login");
       } else ShowToast(result?.message, "#b71c1c", "error", toastId);
     } catch (err) {
       const error = err as TError;
@@ -72,12 +69,29 @@ const Login = () => {
   return (
     <div className="max-w-7xl mx-auto">
       <div className="text-center space-y-2 mt-8 mb-12">
-        <Header header={"Log In"} />
+        <Header header={"Register"} />
         <Subheader className="text-center" heading={"User Log In"} />
       </div>
       <div className="w-full lg:max-w-md mx-auto space-y-8 rounded-lg bg-white p-8 shadow-lg">
         <Form {...form}>
           <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
+            <FormField
+              name="name"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      className="px-4 py-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      placeholder="Name"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
             <FormField
               name="email"
               control={form.control}
@@ -123,9 +137,9 @@ const Login = () => {
               size={"lg"}
               type="submit"
               className="w-full bg-primary hover:bg-orange-400 text-white font-semibold rounded-lg py-3 shadow-md"
-              disabled={isButtonDisabled} // Disable if email or password is empty
+              disabled={isButtonDisabled}
             >
-              Log In
+              Register
             </Button>
           </form>
         </Form>
@@ -133,12 +147,12 @@ const Login = () => {
         <Separator className="my-6" />
 
         <div className="flex justify-center space-x-1">
-          <span className="text-center text-sm">Don't have an account?</span>
+          <span className="text-center text-sm">Already have an account?</span>
           <Link
-            to="/register"
+            to="/login"
             className="text-indigo-600 text-sm font-semibold hover:text-indigo-700"
           >
-            Register
+            Login
           </Link>
         </div>
       </div>
@@ -146,4 +160,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

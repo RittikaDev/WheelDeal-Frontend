@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
 import { useAppSelector } from "../../redux/hooks";
@@ -15,6 +15,7 @@ import { IMenuItem } from "../../types";
 import { Menu, X } from "lucide-react";
 // import logo from "../../../assets/car.svg";
 import { Button } from "../ui/button";
+import ProfileDropdown from "./ProfileDropdown";
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -22,15 +23,14 @@ const NavBar = () => {
   // Use the selector to automatically update when the user is logged in
   const loggedInUser = useAppSelector(selectCurrentUser);
   const token = useAppSelector(useCurrentToken);
+  const userEmail = useAppSelector(selectCurrentUser);
 
-  const { data: currentUser, isLoading } = useGetCurrentUserMutation(
-    undefined,
-    {
-      skip: !loggedInUser, // Skip the query if not logged in
-    }
-  );
+  const [getCurrentUser, { data: currentUser, isLoading }] =
+    useGetCurrentUserMutation();
 
-  // console.log(isLoading, loggedInUser, currentUser);
+  useEffect(() => {
+    if (userEmail) getCurrentUser({ email: userEmail.userEmail });
+  }, [userEmail, getCurrentUser]);
 
   let user;
   if (token) user = verifyToken(token as string) as { role: "user" | "admin" };
@@ -68,8 +68,12 @@ const NavBar = () => {
       <nav className="max-w-7xl mx-auto gap-3 px-5 sticky top-0 py-3 lg:py-3">
         <div className="flex items-center justify-between">
           <Link className="flex items-center space-x-1" to="/">
-            <img src="" alt="logo" />
-            <span className="text-2xl font-semibold">RentGo</span>
+            <img
+              src="/public/wheelDeal-logo.png"
+              className="h-10 w-10 mt-2"
+              alt="wheelDeal"
+            />
+            <span className="text-2xl font-semibold">WheelDeal</span>
           </Link>
           <ul
             className={`z-10 flex absolute bg-background w-[80%] flex-col top-0 lg:w-auto lg:static lg:flex-row lg:bg-transparent lg:items-center lg:space-x-8 h-screen lg:h-auto ${
@@ -78,8 +82,8 @@ const NavBar = () => {
           >
             <li className="flex justify-between p-4 lg:hidden">
               <Link className="flex items-center space-x-1" to="/">
-                <img src="/zfitx-logo-icon.png" alt="logo" />
-                <span className="text-2xl font-semibold">RentGo</span>
+                <img src="/public/wheelDeal-logo.png" alt="wheelDeal" />
+                <span className="text-2xl font-semibold">WheelDeal</span>
               </Link>
               <button
                 className="inline-block lg:hidden"
@@ -128,12 +132,12 @@ const NavBar = () => {
           {!isLoading && loggedInUser ? (
             <div className="flex items-center space-x-6">
               <ThemeSwitcher />
-              {/* <LinkrofileAvatar
-								size="10"
-								align="end"
-								profileImage={currentUser?.data?.profileImage}
-								name={currentUser?.data?.name}
-							/>  */}
+              <ProfileDropdown
+                align="end"
+                profileImage={currentUser?.data?.profileImage}
+                name={currentUser?.data?.name}
+                email={currentUser?.data?.email}
+              />
               <button
                 className="inline-block lg:hidden active:scale-95 duration-50"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -151,7 +155,7 @@ const NavBar = () => {
                 <Menu size={24} />
               </button>
               <div className="space-x-2 hidden lg:inline-block">
-                <Link to="/signup">
+                <Link to="/register">
                   <Button size={"lg"} variant={"ghost"}>
                     Register
                   </Button>
