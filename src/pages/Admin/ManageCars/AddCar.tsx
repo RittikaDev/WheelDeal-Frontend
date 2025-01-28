@@ -97,7 +97,14 @@ const AddCar = () => {
     const toastId = ShowToast("Adding...", "#ffdf20", "loading");
     setLoading(true);
     try {
-      const result = await createProduct(carData);
+      const updatedCarData = {
+        ...carData,
+        year: Number(carData.year),
+        seatCapacity: Number(carData.seatCapacity),
+        stock: Number(carData.stock),
+      };
+
+      const result = await createProduct(updatedCarData);
       console.log(result);
       ShowToast("Car created successfully:", "#4CAF50", "success", toastId);
       setLoading(false);
