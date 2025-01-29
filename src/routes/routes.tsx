@@ -8,7 +8,7 @@ import ProtectedRoutes from "../components/layout/ProtectedRoutes";
 
 import Login from "../pages/Authentication/Login";
 import Register from "../pages/Authentication/Register";
-import CheckOut from "../pages/CheckOut";
+// import CheckOut from "../pages/CheckOut";
 
 import TrackMyOrder from "../pages/User/TrackMyOrder/TrackMyOrder";
 import Overview from "../pages/User/Overview/Overview";
@@ -20,75 +20,75 @@ import ManageOrders from "../pages/Admin/ManageOrders";
 import NotFoundPage from "../pages/NotFoundPage";
 
 const router = createBrowserRouter([
-	{
-		path: "/",
-		element: <MainLayout />,
-		children: routeGenarator(frontendPageRoutes),
-	},
-	{
-		path: "/checkout",
-		element: (
-			<ProtectedRoutes roles={["user"]}>
-				<CheckOut />
-			</ProtectedRoutes>
-		),
-	},
-	{
-		path: "/login",
-		element: <Login />,
-	},
-	{
-		path: "/register",
-		element: <Register />,
-	},
-	{
-		path: "/user",
-		element: (
-			<ProtectedRoutes roles={["user"]}>
-				<DashboardLayout />
-			</ProtectedRoutes>
-		),
-		children: [
-			{
-				path: "",
-				element: <Overview />,
-			},
-			{
-				path: "track-my-order",
-				element: <TrackMyOrder />,
-			},
-			{
-				path: "manage-profile",
-				element: <ManageProfile />,
-			},
-		],
-	},
-	{
-		path: "/admin",
-		element: (
-			<ProtectedRoutes roles={["admin"]}>
-				<DashboardLayout />
-			</ProtectedRoutes>
-		),
-		children: [
-			{
-				path: "",
-				element: <ManageUsers />,
-			},
-			{
-				path: "manage-product",
-				element: <ManageCars />,
-			},
-			{
-				path: "manage-orders",
-				element: <ManageOrders />,
-			},
-		],
-	},
-	{
-		path: "*",
-		element: <NotFoundPage />,
-	},
+  {
+    path: "/",
+    element: <MainLayout />,
+    children: routeGenarator(frontendPageRoutes),
+  },
+  // {
+  // 	path: "/checkout",
+  // 	element: (
+  // 		<ProtectedRoutes roles={["user"]}>
+  // 			<CheckOut />
+  // 		</ProtectedRoutes>
+  // 	),
+  // },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
+  {
+    path: "/user",
+    element: (
+      <ProtectedRoutes roles={["user"]}>
+        <DashboardLayout />
+      </ProtectedRoutes>
+    ),
+    children: [
+      {
+        path: "",
+        element: <Overview />,
+      },
+      {
+        path: "track-my-order",
+        element: <TrackMyOrder />,
+      },
+      {
+        path: "manage-profile",
+        element: <ManageProfile />,
+      },
+    ],
+  },
+  {
+    path: "/admin",
+    element: (
+      <ProtectedRoutes roles={["admin"]}>
+        <DashboardLayout />
+      </ProtectedRoutes>
+    ),
+    children: [
+      {
+        path: "",
+        element: <ManageUsers />,
+      },
+      {
+        path: "manage-product",
+        element: <ManageCars />,
+      },
+      {
+        path: "manage-orders",
+        element: <ManageOrders />,
+      },
+    ],
+  },
+  {
+    path: "*",
+    element: <NotFoundPage />,
+  },
 ]);
 
 export default router;
