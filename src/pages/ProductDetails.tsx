@@ -20,6 +20,7 @@ import {
 	Calendar1,
 	Locate,
 } from "lucide-react";
+
 import {
 	Tabs,
 	TabsContent,
@@ -30,7 +31,9 @@ import {
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { useGetSingleCarQuery } from "../redux/features/cars/carApi";
 import { addCarCart, useCurrentCar } from "../redux/features/cars/carSlice";
+
 import { ICar, ICarGalleryImage } from "../types";
+
 import ImageMagnifier from "../components/Products/ImageMagnifier";
 import LoadingPage from "../components/shared/LoadingPage";
 import { Button } from "../components/ui/button";

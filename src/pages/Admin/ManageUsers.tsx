@@ -121,43 +121,46 @@ const ManageUsers = () => {
 			<DashboardHeading title={"Manage Users"} />
 			<Toaster />
 			<div className="container px-4 2xl:px-0 mx-auto py-4">
-				<div className="flex items-center gap-10 justify-between">
-					<form className="flex items-center w-full justify-between">
+				<div className="flex items-center gap-10 justify-between flex-col sm:flex-row">
+					<form className="flex items-center w-full justify-between flex-col sm:flex-row">
 						{users && (
-							<div className="flex gap-3">
-								<Label>Limit</Label>
+							<div className="flex gap-3 flex-col sm:flex-row w-full sm:w-auto">
+								{/* Search Input */}
+								<div className="w-full sm:w-72 md:w-80 lg:w-96 mb-4 sm:mb-0 relative">
+									<Input
+										name="search"
+										className="rounded-sm w-full hover:border-primary pl-10" // Added padding-left to leave space for the icon
+										type="text"
+										placeholder="Search"
+										onChange={handleFilterChange}
+									/>
+									{/* Search Icon */}
+									<button className="absolute right-2 top-1/2 transform -translate-y-1/2 hover:text-primary">
+										<Search />
+									</button>
+								</div>
 
-								<select
-									defaultValue={5}
-									className="text-black"
-									name="pageLimit"
-									onChange={handleFilterChange}
-									id=""
-								>
-									<option value={2}>2</option>
-									<option value={5}>5</option>
-									<option value={10}>10</option>
-									<option value={20}>20</option>
-								</select>
-								<p>
-									Showing {startIndex}–{endIndex} of {totalusers} results
-								</p>
+								{/* Limit Dropdown and Result Text */}
+								<div className="flex gap-3 items-center w-full sm:w-auto">
+									<Label>Limit</Label>
+									<select
+										defaultValue={5}
+										className="text-black"
+										name="pageLimit"
+										onChange={handleFilterChange}
+										id=""
+									>
+										<option value={2}>2</option>
+										<option value={5}>5</option>
+										<option value={10}>10</option>
+										<option value={20}>20</option>
+									</select>
+									<p>
+										Showing {startIndex}–{endIndex} of {totalusers} results
+									</p>
+								</div>
 							</div>
 						)}
-
-						{/* Search here  */}
-						<div className="xl:flex hidden items-center relative">
-							<Input
-								name="search"
-								className="rounded-sm w-60 hover:border-primary"
-								type="text"
-								placeholder="Search"
-								onChange={handleFilterChange}
-							/>
-							<button className="absolute hover:text-primary right-2">
-								<Search />
-							</button>
-						</div>
 					</form>
 				</div>
 

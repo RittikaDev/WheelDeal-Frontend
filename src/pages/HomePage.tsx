@@ -9,7 +9,6 @@ import FeaturedProducts from "../components/Homepage/FeaturedProducts";
 
 const HomePage = () => {
 	const { theme } = useTheme(); // Get the current theme from context
-
 	const [isDarkMode, setIsDarkMode] = useState(false);
 
 	useEffect(() => {

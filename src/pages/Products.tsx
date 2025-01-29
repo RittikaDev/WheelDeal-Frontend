@@ -1,8 +1,3 @@
-// import PageBanner from "@/components/reusableComponents/PageBanner";
-// import LoadingPage from "@/components/shared/LoadingPage";
-// import NotFound from "@/components/shared/NotFound";
-// import ProductsSidebar from "@/components/shared/ProductsSidebar";
-
 import { FormEvent, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { ICar } from "../types";

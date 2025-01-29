@@ -97,8 +97,8 @@ const ManageCars = () => {
 			<Toaster />
 			<DashboardHeading title={"Manage Products"} />
 			<div className="container px-4 2xl:px-0 mx-auto py-4">
-				<div className="flex items-center gap-10 justify-between">
-					<form className="flex items-center w-full justify-between">
+				<div className="md:flex items-center gap-10 justify-between">
+					<form className="md:flex items-center w-full justify-between">
 						{products && (
 							<div className="flex gap-3">
 								<Label>Limit</Label>
@@ -122,7 +122,7 @@ const ManageCars = () => {
 						)}
 
 						{/* Search here  */}
-						<div className="xl:flex hidden items-center relative">
+						{/* <div className="xl:flex hidden items-center relative">
 							<Input
 								name="search"
 								className="rounded-sm w-60 hover:border-primary"
@@ -131,6 +131,18 @@ const ManageCars = () => {
 								onChange={handleFilterChange}
 							/>
 							<button className="absolute hover:text-primary right-2">
+								<Search />
+							</button>
+						</div> */}
+						<div className="w-full sm:w-72 md:w-80 lg:w-96 mb-4 sm:mb-0 relative">
+							<Input
+								name="search"
+								className="rounded-sm w-full hover:border-primary pl-10"
+								type="text"
+								placeholder="Search"
+								onChange={handleFilterChange}
+							/>
+							<button className="absolute right-2 top-1/2 transform -translate-y-1/2 hover:text-primary">
 								<Search />
 							</button>
 						</div>
