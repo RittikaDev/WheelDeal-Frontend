@@ -88,7 +88,8 @@ Ensure you have the following installed on your local machine:
 ### Configuration
 Create a .env.local file in the root directory of the project and add the following enviroment variables:
 
-BCKEND
+In Backend
+```bash
 NODE_ENV=
 PORT=
 DATABASE_URL=
@@ -103,6 +104,7 @@ SP_USERNAME=
 SP_PASSWORD=
 SP_PREFIX=
 SP_RETURN_URL=
+```
 
 2. Install dependencies:
 
