@@ -85,7 +85,24 @@ Ensure you have the following installed on your local machine:
    <!-- Backend clone  -->
    git clone (https://github.com/RittikaDev/WheelDeal-Backend)
 ```
+### Configuration
+Create a .env.local file in the root directory of the project and add the following enviroment variables:
 
+BCKEND
+NODE_ENV=
+PORT=
+DATABASE_URL=
+BCRYPT_SALT_ROUNDS=
+DEFAULT_PASS=
+JWT_ACCESS_SECRET=
+JWT_ACCESS_EXPIRES_IN=
+JWT_REFRESH_SECRET=
+JWT_REFRESH_EXPIRES_IN=
+SP_ENDPOINT=
+SP_USERNAME=
+SP_PASSWORD=
+SP_PREFIX=
+SP_RETURN_URL=
 
 2. Install dependencies:
 
