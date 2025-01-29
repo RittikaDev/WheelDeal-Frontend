@@ -69,7 +69,7 @@ const ProductsPage = () => {
 	const [stockStatus, setStockStatus] = useState<string>("available");
 	const { data: getResults, isLoading } = useGetAllCarsQuery(filters);
 
-	//   console.log(stockStatus);
+	console.log(stockStatus);
 	// Product and total product count
 	const products = getResults?.data;
 

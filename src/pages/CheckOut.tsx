@@ -53,7 +53,7 @@ const CheckOut = () => {
 			});
 	}, [currentUser, reset]);
 
-	const handdleOrderPlacement = async (orderData) => {
+	const handdleOrderPlacement = async (orderData: any) => {
 		const orderBData = {
 			products: currentCarts.items.map((item) => ({
 				product: item.carId,

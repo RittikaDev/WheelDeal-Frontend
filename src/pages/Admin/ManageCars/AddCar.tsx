@@ -60,7 +60,7 @@ const AddCar = () => {
 
 	const [loading, setLoading] = useState(false);
 
-	const handleInputChange = (e) => {
+	const handleInputChange = (e: any) => {
 		const { name, value, type, checked } = e.target;
 
 		if (type === "checkbox") setCarData({ ...carData, [name]: checked });

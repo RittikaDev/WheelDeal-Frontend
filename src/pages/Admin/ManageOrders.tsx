@@ -101,7 +101,7 @@ const ManageOrders = () => {
 	const endIndex = Math.min(startIndex + filters.limit - 1, totalorders);
 	const totalPages = getResults?.meta?.totalPages;
 
-	const handleStatusChange = async (orderId: string, status: string) => {
+	const handleStatusChange = async (_orderId: string, status: string) => {
 		setStatus(status);
 	};
 
@@ -222,7 +222,7 @@ const ManageOrders = () => {
 									</tr>
 								</thead>
 								<tbody>
-									{orders?.map((order, i: number) => (
+									{orders?.map((order: any, i: number) => (
 										<tr
 											key={i}
 											className="odd:bg-orange-100 odd:dark:bg-primary-900 even:bg-primary-500 even:dark:bg-gray-800 dark:dark:bg-gray-600 border-b dark:border-gray-700"
@@ -231,7 +231,7 @@ const ManageOrders = () => {
 												{i + 1}
 											</th>
 											<td className="px-6 py-3">
-												{order.products.map((product, index) => (
+												{order.products.map((product: any, index: any) => (
 													<div key={index}>
 														<img
 															src={product.product?.image}

@@ -1,4 +1,4 @@
-import HeroImg from "/wheelDeal-logo.png";
+import HeroImg from "/wheelDeal-logo-banner.png";
 
 import { motion } from "motion/react";
 import { DriveFromRight, SlideRight } from "../../utils/animation";
