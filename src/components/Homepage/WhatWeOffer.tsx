@@ -1,28 +1,23 @@
-import { ChartBarIcon } from "lucide-react";
 import { motion } from "motion/react";
 import { SlideLeft } from "../../utils/animation";
-// import { useTheme } from "../../hooks/useTheme";
 
 const OfferData = [
 	{
 		id: 1,
-		title: "Lorem ipsum dolor sit amet",
-		desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugitdolores inventore, maxime voluptates modi nisi?",
-		icon: <ChartBarIcon className="opacity-0" size={24} />,
+		title: "Car Maintenance & Repairs",
+		desc: "Get your vehicle serviced with the best auto repair professionals. From oil changes to brake services, we’ve got you covered.",
 		delay: 0.3,
 	},
 	{
 		id: 2,
-		title: "Lorem ipsum dolor sit amet",
-		desc: "Lorem  amet consectetur adipisicing elit. Fugitdolores inventore, maxime voluptates modi nisi?",
-		icon: <ChartBarIcon className="opacity-0" size={24} />,
+		title: "New & Used Car Sales",
+		desc: "Browse our wide selection of new and certified pre-owned vehicles. Find your perfect car at a great price.",
 		delay: 0.3,
 	},
 	{
 		id: 3,
-		title: "Lorem ipsum dolor sit amet",
-		desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. ?",
-		icon: <ChartBarIcon className="opacity-0" size={24} />,
+		title: "Car Accessories & Parts",
+		desc: "From floor mats to custom rims, we offer a variety of car accessories to suit every need and style.",
 		delay: 0.3,
 	},
 ];
@@ -34,8 +29,9 @@ const WhatWeOffer = () => {
 				<div className="space-y-4 p-6">
 					<h1 className="text-3xl md:text-4xl font-bold">What We Offer You</h1>
 					<p className="text-grey-500">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
-						dolores inventore, maxime voluptates modi nisi?
+						At our car shop, we provide a comprehensive range of services to
+						ensure your vehicle stays in top condition. From routine maintenance
+						to major repairs, our team of skilled professionals is here to help.
 					</p>
 				</div>
 				{OfferData.map((item) => {
@@ -47,7 +43,6 @@ const WhatWeOffer = () => {
 							className="space-y-4 p-6 bg-[#fbfbfb] dark:bg-gray-800 hover:bg-white dark:hover:bg-slate-900 rounded-xl hover:shadow-[0_0_22px_0_rgba(0,0,0,0.15)]"
 							key={item.id}
 						>
-							<div className="text-4xl">{item.icon}</div>
 							<p className="text-2xl font-semibold">{item.title}</p>
 							<p className="text-grey-500">{item.desc}</p>
 						</motion.div>

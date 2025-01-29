@@ -1,7 +1,10 @@
-import HeroImg from "/hero-image.png";
+import HeroImg from "/wheelDeal-logo.png";
 
 import { motion } from "motion/react";
 import { DriveFromRight, SlideRight } from "../../utils/animation";
+import { Link } from "react-router-dom";
+import { Play } from "lucide-react";
+import { Button } from "../ui/button";
 
 const HeroSection = () => {
 	return (
@@ -16,8 +19,8 @@ const HeroSection = () => {
 							animate="visible"
 							className="text-5xl lg:text-6xl font-bold leading-relaxed xl:leading-normal"
 						>
-							Lorem ipsum dolor sit amet{" "}
-							<span className="text-primary">lorem</span>.
+							Drive the Future with{" "}
+							<span className="text-primary">WheelDeal</span>
 						</motion.h1>
 						<motion.p
 							variants={SlideRight(1.2)}
@@ -25,8 +28,8 @@ const HeroSection = () => {
 							animate="visible"
 							className="text-grey-600 xl:max-w-[500px]"
 						>
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
-							dolores inventore, maxime voluptates modi nisi?
+							Find the perfect ride at unbeatable prices. Whether you're looking
+							for speed, comfort, or efficiency – we’ve got you covered!
 						</motion.p>
 					</div>
 					{/* BUTTON SECTION */}
@@ -36,12 +39,24 @@ const HeroSection = () => {
 						animate="visible"
 						className="flex justify-center gap-8 md:justify-start"
 					>
-						<button className="primary-btn flex items-center gap-2 mt-4">
-							Order Now
-						</button>
-						<button className="flex justify-center items-center gap-2 ">
-							Watch Now
-						</button>
+						<Link to="/cars">
+							<button className="primary-btn flex items-center gap-2 mt-4">
+								Order Now
+							</button>
+						</Link>
+						<a
+							href="https://www.youtube.com/watch?v=8cUL_EkO7mU"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							{/* <button className="flex justify-center items-center gap-2 my-6 ">
+								<Play className="text-primary" /> Watch Our Collection
+							</button> */}
+							<Button size={"lg"} variant="outline" className="mt-5">
+								<Play className="text-red-600" />
+								Watch Now
+							</Button>
+						</a>
 					</motion.div>
 				</div>
 				{/* HERO IMAGE */}

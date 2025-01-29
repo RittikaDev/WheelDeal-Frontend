@@ -25,6 +25,7 @@ import {
 import ActionMenu from "../../../components/reusableComponents/ActionMenu";
 import AddNewCarModal from "./AddNewCarModel";
 import ShowToast from "../../../components/reusableComponents/ShowToast";
+import DashboardHeading from "../../../components/reusableComponents/DashboardHeading";
 
 interface TFilters {
 	search: string;
@@ -92,13 +93,10 @@ const ManageCars = () => {
 	const totalPages = getResults?.meta?.totalPages;
 
 	return (
-		<div className="2xl:mt-24">
+		<div className="max-w-7xl mx-auto">
 			<Toaster />
+			<DashboardHeading title={"Manage Products"} />
 			<div className="container px-4 2xl:px-0 mx-auto py-4">
-				{/* navbar product manage  */}
-				{/* /menu  */}
-				{/* <DasdboardMenu /> */}
-
 				<div className="flex items-center gap-10 justify-between">
 					<form className="flex items-center w-full justify-between">
 						{products && (
@@ -138,8 +136,7 @@ const ManageCars = () => {
 						</div>
 					</form>
 					<div>
-						{" "}
-						<AddNewCarModal />{" "}
+						<AddNewCarModal />
 					</div>
 				</div>
 

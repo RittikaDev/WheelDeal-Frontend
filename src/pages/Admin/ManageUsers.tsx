@@ -23,6 +23,7 @@ import {
 	useManageStatusMutation,
 } from "../../redux/features/auth/authApi";
 import { Switch } from "../../components/ui/switch";
+import DashboardHeading from "../../components/reusableComponents/DashboardHeading";
 
 interface TFilters {
 	search: string;
@@ -116,7 +117,8 @@ const ManageUsers = () => {
 	const totalPages = getResults?.meta?.totalPages;
 
 	return (
-		<div className="2xl:mt-24">
+		<div className="max-w-7xl mx-auto">
+			<DashboardHeading title={"Manage Users"} />
 			<Toaster />
 			<div className="container px-4 2xl:px-0 mx-auto py-4">
 				<div className="flex items-center gap-10 justify-between">

@@ -2,136 +2,175 @@ import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Textarea } from "../components/ui/textarea";
 
-import { Instagram } from "lucide-react";
 import Subheader from "../components/reusableComponents/SubHeader";
 import FlipCard from "../components/AboutUsPage/FlipCard";
-import {
-  aboutImgs,
-  teamsImgs,
-  instagramImgs,
-} from "../components/AboutUsPage/AboutPageStatic";
+import { teamDetails } from "../components/AboutUsPage/AboutPageStatic";
 import BenefitSection from "../components/AboutUsPage/BenefitSection";
 import Header from "../components/reusableComponents/Header";
+import { Facebook, Instagram, Twitter } from "lucide-react";
+import { Separator } from "../components/ui/separator";
 
 const AboutUs = () => {
-  return (
-    <div>
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-5  ">
-          {aboutImgs.map((item) => (
-            <FlipCard item={item} />
-          ))}
-        </div>
+	return (
+		<div>
+			<div className="text-center my-10">
+				<Header header={"Driving Innovation, Building Trust"} />
+				<Separator className="bg-primary h-1 w-1/5 mx-auto mt-4" />
 
-        {/* WE ENDURE IN EVERY STAGES */}
-        <div className="min-h-[550px] md:flex px-4 py-10 md:py-0 md:px-0 gap-10 items-center">
-          <div className="w-full">
-            <Subheader
-              className="text-center"
-              heading={"ENDURE IN EVERY STAGES"}
-            />
-            <Header header={"For A Healthy life"} />
-            <p className="text-justify">
-              With life bringing companionship, it follows that the individual
-              thrives. Living now feels dignified and orderly. Like a maze, this
-              journey's winding paths lead forward. A just life, unburdened,
-              brings growth and wisdom. In such conditions, there is a delicate
-              balance. It takes just the right amount of time to nurture and
-              cultivate. Like a small bird resting, so does the mind settle when
-              in a state of tranquility. Pain and pleasure, as with life, ebb
-              and flow. This lively existence now unfolds.
-              <br />
-              <br />
-              <br />
-              Strong and resolute, we navigate life’s challenges, ever adjusting
-              to the delicate balance. Unburdened, life justifies its purpose
-              through ease and clarity. With mindful steps, we adapt to life’s
-              fluctuations.
-            </p>
-          </div>
-          <div className="border-l-2 min-h-36 p-10 space-y-5 border-l-primary w-full">
-            <p>
-              A worthy pursuit, like a dream, should be approached with resolve.
-              Challenging as it may be, the effort brings about harmony and
-              growth. Flowing seamlessly, it weaves a narrative of life.
-            </p>
+				{/* <Subheader
+					className="text-center"
+					heading={"Our journey, our passion, your satisfaction"}
+				/> */}
+			</div>
 
-            <p>Barry Hanry - co</p>
-          </div>
-        </div>
-        {/* benfit section  */}
-        <BenefitSection />
+			<div className="max-w-7xl mx-auto">
+				{/* WE ENDURE IN EVERY STAGES */}
+				<div className="min-h-[550px] md:flex px-6 py-12 md:py-0 md:px-0 gap-12 items-center ">
+					<div className="w-full md:w-2/3 space-y-6">
+						<Header header={"Your Journey, Our Expertise"} />
+						<p className="text-justify text-lg text-gray-700 dark:text-gray-100 leading-relaxed">
+							Every car tells a story, and we’re here to make yours
+							unforgettable. With a commitment to quality, performance, and
+							style, we bring you the best in automotive excellence. From
+							precision tuning to expert repairs, we ensure that every ride is
+							smooth, powerful, and reliable.
+							<br />
+							<br />
+							At our shop, passion meets precision. Whether you're looking for a
+							performance boost, a sleek upgrade, or trusted maintenance, we’ve
+							got you covered. We believe every vehicle deserves expert care,
+							and every driver deserves confidence on the road.
+						</p>
+					</div>
+					<div className="border-l-4 border-l-primary min-h-40 p-8 space-y-6 bg-white dark:bg-gray-500 shadow-lg rounded-lg w-full md:w-1/3">
+						<p className="text-lg text-gray-800 dark:text-gray-100 italic">
+							"Cars are more than just machines—they’re a statement of style,
+							power, and adventure. Our dedication to excellence drives us to
+							provide top-tier service, ensuring every vehicle runs at its
+							best."
+						</p>
+						<p className="font-semibold text-gray-900 dark:text-gray-100">
+							Barry Hanry - Founder
+						</p>
+					</div>
+				</div>
 
-        {/* team introduction  */}
-        <div className="py-20 ">
-          <Subheader
-            className="text-center py-6"
-            heading={"TEAM OF EXPERT COACHES"}
-          />
+				{/* benfit section  */}
+				<BenefitSection />
 
-          <p className="max-w-5xl px-4 md:px-0 py-4 text-center mx-auto">
-            At our core, we believe in the power of unity and teamwork. As a
-            fitness team, we push each other to reach new heights, celebrate
-            each victory, and tackle every challenge head-on. Together, we
-            strive for greatness, knowing that our combined strength and support
-            make us unstoppable. With every workout, we grow stronger, fitter,
-            and more resilient, embodying the spirit of perseverance and
-            camaraderie. Join us and unleash your potential, because together,
-            we are stronger.
-          </p>
-          <div className="grid grid-cols-4 py-10 ">
-            {teamsImgs.map((item) => (
-              <FlipCard item={item} />
-            ))}
-          </div>
-        </div>
+				{/* team introduction  */}
+				<div className="py-20 ">
+					<Subheader
+						className="text-center py-6"
+						heading={"TEAM OF EXPERT COACHES"}
+					/>
 
-        {/* JOIN US FROM  */}
-        <Subheader className="text-center" heading={"Contact us"} />
+					<p className="max-w-5xl px-4 md:px-0 py-4 text-center mx-auto">
+						At our core, we believe in the power of unity and teamwork. As a
+						fitness team, we push each other to reach new heights, celebrate
+						each victory, and tackle every challenge head-on. Together, we
+						strive for greatness, knowing that our combined strength and support
+						make us unstoppable. With every workout, we grow stronger, fitter,
+						and more resilient, embodying the spirit of perseverance and
+						camaraderie. Join us and unleash your potential, because together,
+						we are stronger.
+					</p>
+					<div className="grid grid-cols-4 py-10 ">
+						{teamDetails.map((item) => (
+							<FlipCard item={item} key={item.key} />
+						))}
+					</div>
+				</div>
 
-        <div className="grid md:grid-cols-2 gap-4 py-20   justify-between">
-          <div className="spacy-y-3">
-            <Subheader className="text-left" heading={"FEEL FREE TO ASK US!"} />
+				{/* JOIN US FROM  */}
+				<Subheader className="text-center" heading={"Contact us"} />
+				<div className="grid md:grid-cols-2  py-8 justify-between">
+					<div>
+						<Header header={"We’d Love to Hear From You!"} />
+						<p className="text-gray-700 dark:text-gray-300">
+							Got any questions? We're here to help! Reach out to us using the
+							contact information below.
+						</p>
 
-            <p>Somenthisadhaldla ajsldjad</p>
+						<ul className="space-y-2 text-gray-700 dark:text-gray-300">
+							<li>
+								<strong>Address:</strong> 251, Main Street, Suite 101, Downtown,
+								Brooklyn, TX 2012
+							</li>
+							<li>
+								<strong>City:</strong> Brooklyn, TX, USA
+							</li>
+							<li>
+								<strong>Phone:</strong> (123) 456-7890
+							</li>
+							<li>
+								<strong>Email:</strong>{" "}
+								<a
+									href="mailto:contact@ourcompany.com"
+									className="text-blue-600"
+								>
+									contact@ourcompany.com
+								</a>
+							</li>
+							<li>
+								<strong>Operating Hours:</strong> Monday - Friday, 9:00 AM -
+								6:00 PM
+							</li>
+							<li className="flex space-x-5">
+								<strong>Social Media:</strong>
+								<a
+									href="https://www.instagram.com/ourcompany"
+									className="text-rose-700"
+								>
+									<Instagram />
+								</a>
+								<a
+									href="https://www.facebook.com/ourcompany"
+									className="text-blue-900 "
+								>
+									<Facebook />
+								</a>
+								<a
+									href="https://www.twitter.com/ourcompany"
+									className="text-sky-700"
+								>
+									<Twitter />
+								</a>
+							</li>
+						</ul>
+					</div>
 
-            <ul>
-              <li>251, Buyas</li>
-              <li>Boklyn, TX-2012,</li>
-              <li>zfitx@axfitx.com</li>
-            </ul>
-          </div>
-          <div>
-            <form className="space-y-4 px-10" action="">
-              <div className="flex gap-4 items-center">
-                <Input type="text" placeholder="Your full name" />
-                <Input type="email" placeholder="Email Address" />
-              </div>
-              <Input type="text" placeholder="Subject" />
-              <Textarea placeholder="Drop us a few lines here" />
+					<div>
+						<form
+							className="space-y-3 px-6 py-4 bg-gray-50 dark:bg-gray-800 rounded-lg shadow-md"
+							action=""
+						>
+							<div className="flex flex-col md:flex-row gap-2 items-center">
+								<Input
+									type="text"
+									placeholder="Full Name"
+									className="w-full md:w-1/2"
+								/>
+								<Input
+									type="email"
+									placeholder="Email Address"
+									className="w-full md:w-1/2"
+								/>
+							</div>
+							<Input type="text" placeholder="Subject" className="w-full" />
+							<Textarea placeholder="Your Message" className="w-full" />
 
-              <div className="flex justify-end">
-                <Button>Send</Button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-      {/* INSTRAGRAM US FROM  */}
-      <div>
-        <p className="flex gap-2 py-4 items-center justify-center">
-          <Instagram /> FOLLOW US ON @GFITX
-        </p>
-        <div className="flex mb-0 overflow-y-hidden  md:overflow-x-hidden scrollbar-hide ">
-          {instagramImgs.map((img, i) => (
-            <div key={i}>
-              <img className="w-40" src={img.imgUrl} />
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
+							<div className="flex justify-end">
+								<Button className="bg-primary text-white hover:bg-yellow-600 px-5 py-2 rounded-md">
+									Send
+								</Button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
 };
 
 export default AboutUs;

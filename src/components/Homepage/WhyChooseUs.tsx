@@ -5,12 +5,11 @@ const WhyChooseUs = () => {
 				{/* Left Section */}
 				<div className="text-center md:text-left">
 					<h2 className="text-4xl font-bold mb-6 text-gray-800 dark:text-gray-100">
-						The Razor Difference
+						Why Choose Us
 					</h2>
 					<p className="text-lg mb-4 text-gray-600 dark:text-gray-300">
 						For over a decade, we've been a proud service provider, earning and
-						maintaining the trust of the community in Saskatoon, Martensville,
-						Warman, and surrounding areas.
+						maintaining the trust of the community..
 					</p>
 					<div className="flex gap-6 justify-center md:justify-start">
 						<a
@@ -112,7 +111,7 @@ const WhyChooseUs = () => {
 							Certified Experts
 						</h3>
 						<p className="text-gray-600 dark:text-gray-300 mt-2">
-							Choose Razor for proven excellence backed by certified
+							Choose WheelDeal for proven excellence backed by certified
 							professionals.
 						</p>
 					</div>
@@ -140,7 +139,7 @@ const WhyChooseUs = () => {
 						</h3>
 						<p className="text-gray-600 dark:text-gray-300 mt-2">
 							Don’t just take our word for it—see what homeowners of Saskatoon
-							say about Razor.
+							say about WheelDeal.
 						</p>
 					</div>
 				</div>

@@ -23,6 +23,7 @@ import {
 import ShowToast from "../../components/reusableComponents/ShowToast";
 import { selectCurrentUser } from "../../redux/features/auth/authSlice";
 import { useAppSelector } from "../../redux/hooks";
+import DashboardHeading from "../../components/reusableComponents/DashboardHeading";
 
 export function ManageProfile() {
 	const [profileData, setProfileData] = useState({
@@ -127,111 +128,119 @@ export function ManageProfile() {
 		passwordData.oldPassword !== "" && passwordData.newPassword !== "";
 
 	return (
-		<Tabs defaultValue="account" className="w-full max-w-4xl mx-auto p-6">
-			<TabsList className="grid w-full grid-cols-2 mb-6">
-				<TabsTrigger value="account">Profile</TabsTrigger>
-				<TabsTrigger value="password">Password</TabsTrigger>
-			</TabsList>
+		<div className="max-w-4xl mx-auto">
+			<DashboardHeading title={"Manage Profile"} />
+			<Tabs defaultValue="account" className="w-full  p-6">
+				<TabsList className="grid w-full grid-cols-2 mb-6">
+					<TabsTrigger value="account">Profile</TabsTrigger>
+					<TabsTrigger value="password">Password</TabsTrigger>
+				</TabsList>
 
-			{/* Profile Tab */}
-			<TabsContent value="account">
-				<Card>
-					<CardHeader>
-						<div className="text-center space-y-1.5 px-2 md:px-0">
-							<Header header={"Profile"} />
-							<p>Update your personal information and contact details here.</p>
-						</div>
-					</CardHeader>
-					<CardContent className="space-y-4">
-						<div className="space-y-1">
-							<Label htmlFor="name">Name</Label>
-							<Input
-								id="name"
-								value={profileData.name}
-								onChange={handleInputChange}
-								placeholder="Your name"
-							/>
-						</div>
-						<div className="space-y-1">
-							<Label htmlFor="address">Address</Label>
-							<Input
-								id="address"
-								type="address"
-								value={profileData.address}
-								onChange={handleInputChange}
-								placeholder="Your Address"
-							/>
-						</div>
-						<div className="space-y-1">
-							<Label htmlFor="city">City</Label>
-							<Input
-								id="city"
-								type="city"
-								value={profileData.city}
-								onChange={handleInputChange}
-								placeholder="Your City"
-							/>
-						</div>
-						<div className="space-y-1">
-							<Label htmlFor="phone">Phone</Label>
-							<Input
-								id="phone"
-								value={profileData.phone}
-								onChange={handleInputChange}
-								placeholder="Your phone number"
-							/>
-						</div>
-					</CardContent>
-					<CardFooter className="flex justify-center">
-						<Button onClick={handleProfileUpdate} disabled={!isProfileComplete}>
-							Update Profile
-						</Button>
-					</CardFooter>
-				</Card>
-			</TabsContent>
+				{/* Profile Tab */}
+				<TabsContent value="account">
+					<Card>
+						<CardHeader>
+							<div className="text-center space-y-1.5 px-2 md:px-0">
+								<Header header={"Profile"} />
+								<p>
+									Update your personal information and contact details here.
+								</p>
+							</div>
+						</CardHeader>
+						<CardContent className="space-y-4">
+							<div className="space-y-1">
+								<Label htmlFor="name">Name</Label>
+								<Input
+									id="name"
+									value={profileData.name}
+									onChange={handleInputChange}
+									placeholder="Your name"
+								/>
+							</div>
+							<div className="space-y-1">
+								<Label htmlFor="address">Address</Label>
+								<Input
+									id="address"
+									type="address"
+									value={profileData.address}
+									onChange={handleInputChange}
+									placeholder="Your Address"
+								/>
+							</div>
+							<div className="space-y-1">
+								<Label htmlFor="city">City</Label>
+								<Input
+									id="city"
+									type="city"
+									value={profileData.city}
+									onChange={handleInputChange}
+									placeholder="Your City"
+								/>
+							</div>
+							<div className="space-y-1">
+								<Label htmlFor="phone">Phone</Label>
+								<Input
+									id="phone"
+									value={profileData.phone}
+									onChange={handleInputChange}
+									placeholder="Your phone number"
+								/>
+							</div>
+						</CardContent>
+						<CardFooter className="flex justify-center">
+							<Button
+								onClick={handleProfileUpdate}
+								disabled={!isProfileComplete}
+							>
+								Update Profile
+							</Button>
+						</CardFooter>
+					</Card>
+				</TabsContent>
 
-			{/* Password Tab */}
-			<TabsContent value="password">
-				<Card>
-					<CardHeader>
-						<div className="text-center space-y-1.5 px-2 md:px-0">
-							<Header header={"Password"} />
-							<p>Change your password. After saving, you'll be logged out.</p>
-						</div>
-					</CardHeader>
-					<CardContent className="space-y-4">
-						<div className="space-y-1">
-							<Label htmlFor="oldPassword">Old Password</Label>
-							<Input
-								id="oldPassword"
-								type="password"
-								value={passwordData.oldPassword}
-								onChange={handlePasswordChange}
-								placeholder="Enter old password"
-							/>
-						</div>
-						<div className="space-y-1">
-							<Label htmlFor="newPassword">New Password</Label>
-							<Input
-								id="newPassword"
-								type="password"
-								value={passwordData.newPassword}
-								onChange={handlePasswordChange}
-								placeholder="Enter new password"
-							/>
-						</div>
-					</CardContent>
-					<CardFooter className="flex justify-center">
-						<Button
-							onClick={handlePasswordUpdate}
-							disabled={!isPasswordComplete}
-						>
-							Save Password
-						</Button>
-					</CardFooter>
-				</Card>
-			</TabsContent>
-		</Tabs>
+				{/* Password Tab */}
+				<TabsContent value="password">
+					<Card>
+						<CardHeader>
+							<div className="text-center space-y-1.5 px-2 md:px-0">
+								<Header header={"Password"} />
+								<p>Change your password. After saving, you'll be logged out.</p>
+							</div>
+						</CardHeader>
+						<CardContent className="space-y-4">
+							<div className="space-y-1">
+								<Label htmlFor="oldPassword">Old Password</Label>
+								<Input
+									id="oldPassword"
+									type="password"
+									value={passwordData.oldPassword}
+									onChange={handlePasswordChange}
+									placeholder="Enter old password"
+								/>
+							</div>
+							<div className="space-y-1">
+								<Label htmlFor="newPassword">New Password</Label>
+								<Input
+									id="newPassword"
+									type="password"
+									value={passwordData.newPassword}
+									onChange={handlePasswordChange}
+									placeholder="Enter new password"
+								/>
+							</div>
+						</CardContent>
+						<CardFooter className="flex justify-center">
+							<Button
+								onClick={handlePasswordUpdate}
+								disabled={!isPasswordComplete}
+							>
+								Save Password
+							</Button>
+						</CardFooter>
+					</Card>
+				</TabsContent>
+			</Tabs>
+		</div>
 	);
 }
 

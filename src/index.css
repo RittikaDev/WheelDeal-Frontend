@@ -13,7 +13,8 @@
 		--popover-foreground: 20 14.3% 4.1%;
 
 		/* Primary Color is now Custom Color */
-		--primary: 39 96% 57%;
+		/* --primary: 39 96% 57%; */
+		--primary: 39 85% 46%;
 		/* HSL equivalent of #FBB228 */
 		--primary-foreground: 60 9.1% 97.8%;
 		/* light text on primary background */

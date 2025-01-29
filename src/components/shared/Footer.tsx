@@ -18,9 +18,9 @@ const Footer = () => {
 				<div className="space-y-5 border-b md:border-b-0 md:border-r border-primary pb-10 md:pb-0">
 					<Logo />
 					<p className="text-lg font-semibold ">
-						ZfitX - Empowering Your Fitness Journey
+						WheelDeal - Driving Innovation, Building Trust
 					</p>
-					<p className="text-sm ">© 2024 ZfitX. All rights reserved.</p>
+					<p className="text-sm ">© WheelDeal. All rights reserved.</p>
 					<ul className="flex gap-5 ">
 						<li>
 							<Facebook className="hover:text-primary cursor-pointer" />
@@ -36,22 +36,22 @@ const Footer = () => {
 
 				{/* Information Links */}
 				<div className="space-y-5 border-b md:border-b-0 md:border-r border-primary pb-10 md:pb-0">
-					<h4 className="text-2xl font-bold ">Information</h4>
+					<h4 className="text-2xl font-bold ">Quick Access</h4>
 					<ul className="space-y-3 text-gray-600">
 						<li>
 							<Link
-								to="/product-management"
+								to="/"
 								className="hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary"
 							>
-								Dashboard
+								Home
 							</Link>
 						</li>
 						<li>
 							<Link
-								to="/orders"
+								to="/cars"
 								className="hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary"
 							>
-								Order Status
+								Cars
 							</Link>
 						</li>
 						<li>
@@ -62,20 +62,12 @@ const Footer = () => {
 								About Us
 							</Link>
 						</li>
-						<li>
-							<Link
-								to="/"
-								className="hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary"
-							>
-								Privacy Policy
-							</Link>
-						</li>
 					</ul>
 				</div>
 
 				{/* Contact Section */}
 				<div className="space-y-5 border-b md:border-b-0 md:border-r border-primary pb-10 md:pb-0">
-					<h4 className="text-2xl font-bold ">Contact Us</h4>
+					<h4 className="text-2xl font-bold">Where to Find Us</h4>
 					<ul className="space-y-3 text-gray-600">
 						<li className="flex gap-3 items-center">
 							<MapPin className="text-primary" />
@@ -83,20 +75,20 @@ const Footer = () => {
 						</li>
 						<li className="flex gap-3 items-center">
 							<Phone className="text-primary" />
-							<span>+880-1614-123456</span>
+							<span>+880-1000-123456</span>
 						</li>
 						<li className="flex gap-3 items-center">
 							<Mail className="text-primary" />
-							<span>info@zfitx.com</span>
+							<span>info@wheelDeal.com</span>
 						</li>
 					</ul>
 				</div>
 
 				{/* Subscribe Section */}
 				<div className="space-y-5">
-					<h4 className="text-2xl font-bold text-gray-800">Subscribe Us</h4>
+					<h4 className="text-2xl font-bold text-gray-800">Subscribe</h4>
 					<p className="text-gray-600">
-						Subscribe to our mailbox to receive exclusive offers and updates.
+						Subscribe to receive exclusive offers and updates.
 					</p>
 					<div className="flex items-center gap-3">
 						{/* Replace with your Input component */}
@@ -106,14 +98,6 @@ const Footer = () => {
 							className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
 						/>
 						<Button>SUBSCRIBE</Button>
-					</div>
-					<div className="flex items-center justify-between pt-5">
-						<p>We accept only</p>
-						<img
-							className="h-10"
-							src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Stripe_Logo%2C_revised_2016.svg/2560px-Stripe_Logo%2C_revised_2016.svg.png"
-							alt="Stripe Logo"
-						/>
 					</div>
 				</div>
 			</div>
