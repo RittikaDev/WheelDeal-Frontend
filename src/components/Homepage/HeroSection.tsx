@@ -9,7 +9,8 @@ import { Button } from "../ui/button";
 const HeroSection = () => {
 	return (
 		<section>
-			<div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 min-h-screen relative">
+			{/* <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 min-h-screen relative"> */}
+			<div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 min-h-[70vh] relative">
 				{/* BRAND INFO */}
 				<div className="flex flex-col justify-center py-14 md:py-0">
 					<div className="text-center md:text-left spacy-y-6">

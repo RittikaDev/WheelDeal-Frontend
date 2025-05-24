@@ -29,6 +29,7 @@ const UpdateCar = (props: { car: ICar }) => {
 		category: string;
 		year: number;
 		price: number;
+		rating: number;
 		color: string;
 		seatCapacity: number;
 		isElectric: boolean;
@@ -45,6 +46,7 @@ const UpdateCar = (props: { car: ICar }) => {
 		category: "",
 		year: 2025,
 		price: 35000,
+		rating: 5,
 		color: "",
 		seatCapacity: 5,
 		isElectric: false,
@@ -69,6 +71,7 @@ const UpdateCar = (props: { car: ICar }) => {
 				category: props.car.category || "",
 				year: props.car.year || 2025,
 				price: props.car.price || 35000,
+				rating: props.car.rating || 5,
 				color: props.car.color || "",
 				seatCapacity: props.car.seatCapacity || 5,
 				isElectric: props.car.isElectric || false,
@@ -143,6 +146,16 @@ const UpdateCar = (props: { car: ICar }) => {
 											value={carData.description}
 											onChange={handleInputChange}
 											placeholder="Description"
+										/>
+									</div>
+									<div className="space-y-1">
+										<Label htmlFor="rating">Rating</Label>
+										<Input
+											id="rating"
+											name="rating"
+											value={carData.rating}
+											onChange={handleInputChange}
+											placeholder="Rating"
 										/>
 									</div>
 								</div>

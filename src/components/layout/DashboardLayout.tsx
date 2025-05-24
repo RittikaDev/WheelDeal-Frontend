@@ -9,31 +9,34 @@ import ProfileDropdown from "../shared/ProfileDropdown";
 import SideMenu from "../shared/SideMenu";
 
 const DashboardLayout = () => {
-  const userEmail = useAppSelector(selectCurrentUser);
-  const [getCurrentUser, { data: currentUser }] = useGetCurrentUserMutation();
+	const userEmail = useAppSelector(selectCurrentUser);
+	const [getCurrentUser, { data: currentUser }] = useGetCurrentUserMutation();
 
-  useEffect(() => {
-    if (userEmail) getCurrentUser({ email: userEmail.userEmail });
-  }, [userEmail, getCurrentUser]);
+	useEffect(() => {
+		if (userEmail) getCurrentUser({ email: userEmail.userEmail });
+	}, [userEmail, getCurrentUser]);
 
-  if (currentUser?.data.isBlocked) window.location.href = "/login";
+	if (currentUser?.data.isBlocked) window.location.href = "/login";
 
-  return (
-    <section className="flex flex-col lg:flex-row">
-      <SideMenu />
-      <div className="pt-20 lg:pt-6 lg:pb-6 px-2 lg:px-8 w-auto lg:w-full">
-        <div className="hidden lg:flex justify-end ">
-          <ProfileDropdown
-            align="end"
-            profileImage={currentUser?.data?.profileImage}
-            name={currentUser?.data?.name}
-            email={currentUser?.data?.email}
-          />
-        </div>
-        <Outlet />
-      </div>
-    </section>
-  );
+	// console.log("Current User:", currentUser?.data);
+
+	return (
+		<section className="flex flex-col lg:flex-row">
+			<SideMenu />
+			<div className="pt-20 lg:pt-6 lg:pb-6 px-2 lg:px-8 w-auto lg:w-full">
+				<div className="hidden lg:flex justify-end ">
+					<ProfileDropdown
+						align="end"
+						profileImage={currentUser?.data?.profileImage}
+						name={currentUser?.data?.name}
+						email={currentUser?.data?.email}
+						role={currentUser?.data?.role}
+					/>
+				</div>
+				<Outlet />
+			</div>
+		</section>
+	);
 };
 
 export default DashboardLayout;

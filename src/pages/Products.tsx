@@ -65,7 +65,7 @@ const ProductsPage = () => {
 	]);
 	const [selectedModel, setSelectedModel] = useState<string[]>([]);
 	const [selectedCategory, setSelectedCategory] = useState<string[]>([]);
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	const [selectedRating, setSelectedRating] = useState<number>(1);
 	const [stockStatus, setStockStatus] = useState<string>("available");
 	const { data: getResults, isLoading } = useGetAllCarsQuery(filters);
 
@@ -73,9 +73,7 @@ const ProductsPage = () => {
 	// Product and total product count
 	const products = getResults?.data;
 
-	if (isLoading) {
-		return <>{<LoadingPage />}</>;
-	}
+	if (isLoading) return <>{<LoadingPage />}</>;
 
 	const handleFilterChange = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -141,6 +139,16 @@ const ProductsPage = () => {
 		}));
 	};
 
+	const handleRatingChange = (rating: number) => {
+		setSelectedRating(rating);
+
+		// Update the filters based on the updated stockStatus
+		setFilters((prevFilters) => ({
+			...prevFilters,
+			rating: rating, // Assuming 'filter' should hold the selected brands
+		}));
+	};
+
 	// handle page change
 	const handlePageChange = (page: number) => {
 		setFilters((prevValues) => ({
@@ -187,9 +195,11 @@ const ProductsPage = () => {
 					handleModelChange={handleModelChange}
 					handleCatChange={handleCatChange}
 					handleRadioChange={handleRadioChange}
+					handleRatingChange={handleRatingChange}
 					selectedbrands={selectedBrand}
 					selectedmodels={selectedModel}
 					selectedcat={selectedCategory}
+					selectedrating={selectedRating}
 					brands={brandNames}
 					model={modelNames}
 					category={categoryNames}
@@ -213,7 +223,7 @@ const ProductsPage = () => {
 
 							<select
 								name="sort"
-								className="text-black font-medium border bg-opacity-10 text-sm rounded-lg  block p-2.5               "
+								className="text-black font-medium border bg-opacity-10 text-sm rounded-lg block p-2.5"
 								value={filters.sort || "Sort By Price"}
 								onChange={handleFilterChange}
 							>

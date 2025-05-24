@@ -95,6 +95,18 @@ const SideMenu = () => {
 						size="lg"
 						className="flex items-center justify-start space-x-2 w-full hover:bg-yellow-700 hover:text-white"
 					>
+						<LayoutDashboard size={16} />
+						<span>Overview</span>
+					</Button>
+				</Link>
+			</li>
+			<li className="border-b-2 border-neutral-200">
+				<Link to="/admin/manage-users">
+					<Button
+						variant={isActive("/admin/manage-users") ? "default" : "secondary"}
+						size="lg"
+						className="flex items-center justify-start space-x-2 w-full hover:bg-yellow-700 hover:text-white"
+					>
 						<UsersRound size={16} />
 						<span>Manage Users</span>
 					</Button>
@@ -123,6 +135,20 @@ const SideMenu = () => {
 					>
 						<ShoppingCart size={16} />
 						<span>Manage Orders</span>
+					</Button>
+				</Link>
+			</li>
+			<li className="border-b-2 border-neutral-200">
+				<Link to="/admin/manage-profile">
+					<Button
+						variant={
+							isActive("/admin/manage-profile") ? "default" : "secondary"
+						}
+						size="lg"
+						className="flex items-center justify-start space-x-2 w-full hover:bg-yellow-700 hover:text-white"
+					>
+						<Edit2Icon size={16} />
+						<span>Manage Profile</span>
 					</Button>
 				</Link>
 			</li>

@@ -29,6 +29,7 @@ const AddCar = () => {
 		category: string;
 		year: number;
 		price: number;
+		rating: number;
 		color: string;
 		seatCapacity: number;
 		isElectric: boolean;
@@ -47,6 +48,7 @@ const AddCar = () => {
 		category: "",
 		year: 0,
 		price: 0,
+		rating: 0,
 		color: "",
 		seatCapacity: 0,
 		isElectric: false,
@@ -156,6 +158,16 @@ const AddCar = () => {
 											value={carData.description}
 											onChange={handleInputChange}
 											placeholder="Description"
+										/>
+									</div>
+									<div className="space-y-1">
+										<Label htmlFor="description">Rating</Label>
+										<Input
+											id="rating"
+											name="rating"
+											value={carData.rating}
+											onChange={handleInputChange}
+											placeholder="Rating"
 										/>
 									</div>
 								</div>

@@ -2,6 +2,13 @@ import { ICar, TResponseRedux } from "../../../types";
 import { urlSearchParams } from "../../../utils/urlSearchParams";
 import { baseApi } from "../../api/baseApi";
 
+interface TCarResponse<T> {
+	success: boolean;
+	message: string;
+	result: T;
+	suggestedCars: [T];
+}
+
 const authApi = baseApi.injectEndpoints({
 	endpoints: (builder) => ({
 		getAllCars: builder.query({
@@ -21,7 +28,7 @@ const authApi = baseApi.injectEndpoints({
 				};
 			},
 		}),
-		getSingleCar: builder.query<TResponseRedux<ICar>, string>({
+		getSingleCar: builder.query<TResponseRedux<TCarResponse<ICar>>, string>({
 			query: (carId) => ({
 				url: `/cars/${carId}`,
 				method: "GET",

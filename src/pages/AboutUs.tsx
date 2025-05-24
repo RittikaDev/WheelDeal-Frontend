@@ -1,90 +1,90 @@
-import { Button } from "../components/ui/button";
-import { Input } from "../components/ui/input";
-import { Textarea } from "../components/ui/textarea";
+// import { Button } from "../components/ui/button";
+// import { Input } from "../components/ui/input";
+// import { Textarea } from "../components/ui/textarea";
 
 import Subheader from "../components/reusableComponents/SubHeader";
 import FlipCard from "../components/AboutUsPage/FlipCard";
 import { teamDetails } from "../components/AboutUsPage/AboutPageStatic";
 import BenefitSection from "../components/AboutUsPage/BenefitSection";
 import Header from "../components/reusableComponents/Header";
-import { Facebook, Instagram, Twitter } from "lucide-react";
+// import { Facebook, Instagram, Twitter } from "lucide-react";
 import { Separator } from "../components/ui/separator";
 
 const AboutUs = () => {
-  return (
-    <div>
-      <div className="text-center my-10">
-        <Header header={"Driving Innovation, Building Trust"} />
-        <Separator className="bg-primary h-1 w-1/5 mx-auto mt-4" />
+	return (
+		<div>
+			<div className="text-center my-10">
+				<Header header={"Driving Innovation, Building Trust"} />
+				<Separator className="bg-primary h-1 w-1/5 mx-auto mt-4" />
 
-        {/* <Subheader
+				{/* <Subheader
 					className="text-center"
 					heading={"Our journey, our passion, your satisfaction"}
 				/> */}
-      </div>
+			</div>
 
-      <div className="max-w-7xl mx-auto">
-        {/* WE ENDURE IN EVERY STAGES */}
-        <div className="min-h-[550px] md:flex px-6 py-12 md:py-0 md:px-0 gap-12 items-center ">
-          <div className="w-full md:w-2/3 space-y-6">
-            <Header header={"Your Journey, Our Expertise"} />
-            <p className="text-justify text-lg text-gray-700 dark:text-gray-100 leading-relaxed">
-              Every car tells a story, and we’re here to make yours
-              unforgettable. With a commitment to quality, performance, and
-              style, we bring you the best in automotive excellence. From
-              precision tuning to expert repairs, we ensure that every ride is
-              smooth, powerful, and reliable.
-              <br />
-              <br />
-              At our shop, passion meets precision. Whether you're looking for a
-              performance boost, a sleek upgrade, or trusted maintenance, we’ve
-              got you covered. We believe every vehicle deserves expert care,
-              and every driver deserves confidence on the road.
-            </p>
-          </div>
-          <div className="border-l-4 border-l-primary min-h-40 p-8 space-y-6 bg-white dark:bg-gray-500 shadow-lg rounded-lg w-full md:w-1/3">
-            <p className="text-lg text-gray-800 dark:text-gray-100 italic">
-              "Cars are more than just machines—they’re a statement of style,
-              power, and adventure. Our dedication to excellence drives us to
-              provide top-tier service, ensuring every vehicle runs at its
-              best."
-            </p>
-            <p className="font-semibold text-gray-900 dark:text-gray-100">
-              Barry Hanry - Founder
-            </p>
-          </div>
-        </div>
+			<div className="max-w-7xl mx-auto">
+				{/* WE ENDURE IN EVERY STAGES */}
+				<div className="min-h-[550px] md:flex px-6 py-12 md:py-0 md:px-0 gap-12 items-center ">
+					<div className="w-full md:w-2/3 space-y-6">
+						<Header header={"Your Journey, Our Expertise"} />
+						<p className="text-justify text-lg text-gray-700 dark:text-gray-100 leading-relaxed">
+							Every car tells a story, and we’re here to make yours
+							unforgettable. With a commitment to quality, performance, and
+							style, we bring you the best in automotive excellence. From
+							precision tuning to expert repairs, we ensure that every ride is
+							smooth, powerful, and reliable.
+							<br />
+							<br />
+							At our shop, passion meets precision. Whether you're looking for a
+							performance boost, a sleek upgrade, or trusted maintenance, we’ve
+							got you covered. We believe every vehicle deserves expert care,
+							and every driver deserves confidence on the road.
+						</p>
+					</div>
+					<div className="border-l-4 border-l-primary min-h-40 p-8 space-y-6 bg-white dark:bg-gray-500 shadow-lg rounded-lg w-full md:w-1/3">
+						<p className="text-lg text-gray-800 dark:text-gray-100 italic">
+							"Cars are more than just machines—they’re a statement of style,
+							power, and adventure. Our dedication to excellence drives us to
+							provide top-tier service, ensuring every vehicle runs at its
+							best."
+						</p>
+						<p className="font-semibold text-gray-900 dark:text-gray-100">
+							Barry Hanry - Founder
+						</p>
+					</div>
+				</div>
 
-        {/* benfit section  */}
-        <BenefitSection />
+				{/* benfit section  */}
+				<BenefitSection />
 
-        {/* team introduction  */}
-        <div className="py-20 ">
-          <Subheader
-            className="text-center py-6"
-            heading={"MEET OUR TEAM OF EXPERT"}
-          />
+				{/* team introduction  */}
+				<div className="py-20 ">
+					<Subheader
+						className="text-center py-6"
+						heading={"MEET OUR TEAM OF EXPERT"}
+					/>
 
-          <p className="max-w-5xl px-4 md:px-0 py-4 text-center mx-auto">
-            With years of experience and a passion for excellence, we guide our
-            clients through their car-buying journey, offering expert advice and
-            personalized support. We believe in the power of collaboration and
-            innovation. We work together to deliver exceptional service and
-            ensure that every customer receives the best solutions for their
-            automotive needs. Whether you’re looking for a new vehicle or need
-            expert recommendations, we’re here to help you make informed
-            decisions. Join us and experience unmatched service, because
-            together, we drive success.
-          </p>
-          <div className="grid grid-cols-4 py-10 ">
-            {teamDetails.map((item) => (
-              <FlipCard item={item} key={item.key} />
-            ))}
-          </div>
-        </div>
+					<p className="max-w-5xl px-4 md:px-0 py-4 text-center mx-auto">
+						With years of experience and a passion for excellence, we guide our
+						clients through their car-buying journey, offering expert advice and
+						personalized support. We believe in the power of collaboration and
+						innovation. We work together to deliver exceptional service and
+						ensure that every customer receives the best solutions for their
+						automotive needs. Whether you’re looking for a new vehicle or need
+						expert recommendations, we’re here to help you make informed
+						decisions. Join us and experience unmatched service, because
+						together, we drive success.
+					</p>
+					<div className="grid grid-cols-4 py-10 ">
+						{teamDetails.map((item) => (
+							<FlipCard item={item} key={item.key} />
+						))}
+					</div>
+				</div>
 
-        {/* JOIN US FROM  */}
-        <Subheader className="text-center" heading={"Contact us"} />
+				{/* JOIN US FROM  */}
+				{/* <Subheader className="text-center" heading={"Contact us"} />
         <div className="grid md:grid-cols-2  py-8 justify-between">
           <div>
             <Header header={"We’d Love to Hear From You!"} />
@@ -168,10 +168,10 @@ const AboutUs = () => {
               </div>
             </form>
           </div>
-        </div>
-      </div>
-    </div>
-  );
+        </div> */}
+			</div>
+		</div>
+	);
 };
 
 export default AboutUs;

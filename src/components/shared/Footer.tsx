@@ -59,7 +59,23 @@ const Footer = () => {
 								to="/about-us"
 								className="hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary"
 							>
-								About Us
+								About
+							</Link>
+						</li>
+						<li>
+							<Link
+								to="/testimonial"
+								className="hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary"
+							>
+								Testimonial
+							</Link>
+						</li>
+						<li>
+							<Link
+								to="/contact-us"
+								className="hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary"
+							>
+								Contact
 							</Link>
 						</li>
 					</ul>

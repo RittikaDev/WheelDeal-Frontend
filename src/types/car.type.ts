@@ -19,6 +19,7 @@ export interface ICar {
 	year: number;
 	price: number;
 	color: string;
+	rating: number;
 	seatCapacity: number;
 	isElectric: boolean;
 	moreImages: ICarGalleryImage[];
