@@ -11,8 +11,8 @@ import { toast } from "sonner";
 import { setUser, logout } from "../features/auth/authSlice";
 
 const baseQuery = fetchBaseQuery({
-	// baseUrl: "https://wheel-deal-backend.vercel.app/api",
-	baseUrl: "http://localhost:5000/api", //TODO: CHANGE BACK TO REAL API
+	baseUrl: "https://wheel-deal-backend.vercel.app/api",
+	// baseUrl: "http://localhost:5000/api", //TODO: CHANGE BACK TO REAL API
 	credentials: "include", // ENSURES THAT COOKIES ARE SENT ALONG WITH CROSS-ORIGIN REQUESTS (NECESSARY FOR HTTPONLY REFRESH TOKENS), SINCE JAVASCRIPT CAN NOT DIRECTLY ACCESS COOKIES, ALSO THIS NEEDS TO BE ADDED TO BACKEND AS WELL
 	// TO ADD authorization TOKEN SENT ON ALL API REQUESTS
 	prepareHeaders: (headers, { getState }) => {
@@ -50,8 +50,8 @@ const baseQueryWithRefreshToken: BaseQueryFn<
 		console.log("Sending refresh token");
 
 		const res = await fetch(
-			// "https://wheel-deal-backend.vercel.app/api/auth/refresh-token",
-			"http://localhost:5000/api/auth/refresh-token",
+			"https://wheel-deal-backend.vercel.app/api/auth/refresh-token",
+			// "http://localhost:5000/api/auth/refresh-token",
 			{
 				method: "POST",
 				credentials: "include",
