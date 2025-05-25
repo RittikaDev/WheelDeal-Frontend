@@ -37,7 +37,7 @@ const newsletterApi = baseApi.injectEndpoints({
 				url: `/newsletter/${id}`,
 				method: "GET",
 			}),
-			providesTags: (result, error, id) => [{ type: "Newsletters", id }],
+			providesTags: (id) => [{ type: "Newsletters", id }],
 		}),
 	}),
 });
