@@ -20,6 +20,9 @@ import ManageOrders from "../pages/Admin/ManageOrders";
 import NotFoundPage from "../pages/NotFoundPage";
 import AdminOverviewPage from "../pages/Admin/AdminOverView/AdminOverviewPage";
 import ManageAdminProfile from "../pages/Admin/ManageAdminProfile";
+import CouponManager from "../pages/Admin/CouponManagement/CouponManager";
+import GetCoupon from "../pages/User/GetCoupon";
+import AdminNewsletter from "../pages/Admin/NewsLetter";
 
 const router = createBrowserRouter([
 	{
@@ -60,6 +63,10 @@ const router = createBrowserRouter([
 				element: <TrackMyOrder />,
 			},
 			{
+				path: "view-coupon",
+				element: <GetCoupon />,
+			},
+			{
 				path: "manage-profile",
 				element: <ManageProfile />,
 			},
@@ -88,6 +95,14 @@ const router = createBrowserRouter([
 			{
 				path: "manage-orders",
 				element: <ManageOrders />,
+			},
+			{
+				path: "manage-coupon",
+				element: <CouponManager />,
+			},
+			{
+				path: "newsletter",
+				element: <AdminNewsletter />,
 			},
 			{
 				path: "manage-profile",

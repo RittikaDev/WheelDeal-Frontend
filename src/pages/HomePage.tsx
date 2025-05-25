@@ -10,6 +10,7 @@ import Testimonial from "../components/Homepage/Testimonial";
 import Brands from "../components/Homepage/Brands";
 import Categories from "../components/Homepage/Categories";
 import HowItWorks from "../components/Homepage/HowItWorks";
+import NewsLetter from "../components/Homepage/Newsletter";
 
 const HomePage = () => {
 	const { theme } = useTheme(); // Get the current theme from context
@@ -56,6 +57,7 @@ const HomePage = () => {
 				<HowItWorks />
 				<WhyChooseUs />
 				<Testimonial />
+				<NewsLetter />
 			</div>
 		</>
 	);

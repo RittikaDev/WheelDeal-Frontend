@@ -79,6 +79,11 @@ const NavBar = () => {
 			path: "#",
 			isMegaMenu: true,
 		},
+		{
+			menuId: 8,
+			label: "Newsletter",
+			path: "/newsletter",
+		},
 	];
 
 	if (!isLoading && loggedInUser) {

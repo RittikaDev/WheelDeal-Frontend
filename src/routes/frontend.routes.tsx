@@ -1,3 +1,4 @@
+import NewsLetter from "../components/Homepage/Newsletter";
 import ProtectedRoutes from "../components/layout/ProtectedRoutes";
 import AboutUs from "../pages/AboutUs";
 import CheckOut from "../pages/CheckOut";
@@ -46,6 +47,10 @@ export const frontendPageRoutes = [
 			{
 				path: "contact-us",
 				element: <ContactUs />,
+			},
+			{
+				path: "newsletter",
+				element: <NewsLetter />,
 			},
 			{
 				path: "order/verify",

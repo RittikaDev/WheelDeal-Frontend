@@ -19,8 +19,10 @@ import {
 	Home,
 	LayoutDashboard,
 	Menu,
+	Newspaper,
 	SearchCheck,
 	ShoppingCart,
+	Ticket,
 	UsersRound,
 	X,
 } from "lucide-react";
@@ -68,6 +70,18 @@ const SideMenu = () => {
 					>
 						<SearchCheck size={16} />
 						<span>Track My Order</span>
+					</Button>
+				</Link>
+			</li>
+			<li className="border-b-2 border-neutral-200">
+				<Link to="/user/view-coupon">
+					<Button
+						variant={isActive("/user/view-coupon") ? "default" : "secondary"}
+						size="lg"
+						className="flex items-center justify-start space-x-2 w-full hover:bg-yellow-700 hover:text-white"
+					>
+						<Ticket size={16} />
+						<span>View Coupon</span>
 					</Button>
 				</Link>
 			</li>
@@ -135,6 +149,30 @@ const SideMenu = () => {
 					>
 						<ShoppingCart size={16} />
 						<span>Manage Orders</span>
+					</Button>
+				</Link>
+			</li>
+			<li className="border-b-2 border-neutral-200">
+				<Link to="/admin/manage-coupon">
+					<Button
+						variant={isActive("/admin/manage-coupon") ? "default" : "secondary"}
+						size="lg"
+						className="flex items-center justify-start space-x-2 w-full hover:bg-yellow-700 hover:text-white"
+					>
+						<Ticket size={16} />
+						<span>Manage Coupons</span>
+					</Button>
+				</Link>
+			</li>
+			<li className="border-b-2 border-neutral-200">
+				<Link to="/admin/newsletter">
+					<Button
+						variant={isActive("/admin/newsletter") ? "default" : "secondary"}
+						size="lg"
+						className="flex items-center justify-start space-x-2 w-full hover:bg-yellow-700 hover:text-white"
+					>
+						<Newspaper size={16} />
+						<span>Manage Newsletter</span>
 					</Button>
 				</Link>
 			</li>
